@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pnr-lead-relay",
+  "main": "src/index.js",
+  "compatibility_date": "2026-08-01",
+
+  "observability": { "enabled": true },
+
+  // DEALERCENTER_ACCESS_TOKEN is a SECRET and must never live in this file:
+  //   npx wrangler secret put DEALERCENTER_ACCESS_TOKEN
+  // Request it from support@dealercenter.com with the landing page URL.
+  "vars": {
+    // Testing. Note: the integration environment REQUIRES the literal dealer id
+    // "NOWCOM" - do not send the real DC Company ID here.
+    "DEALERCENTER_ENDPOINT": "https://app-int0.dealercenter.net/api-gateway/crm-externalintegration/LeadManagement/post-xml",
+    "DEALERCENTER_DEALER_ID": "NOWCOM",
+
+    // Production - switch to these only after DealerCenter validates the test lead:
+    // "DEALERCENTER_ENDPOINT": "https://app.dealercenter.net/api-gateway/crm-externalintegration/LeadManagement/post-xml",
+    // "DEALERCENTER_DEALER_ID": "<DC Company ID from Settings > Dealership > General>",
+
+    "LEAD_SOURCE": "Feyth Marketing - Landing Page",
+
+    // Comma-separated. Add each landing page origin.
+    "ALLOWED_ORIGINS": "https://picknride-fleet-lp.pages.dev,https://picknride-usedcars-lp.pages.dev,https://fleet.picknrideauto.com,https://call.picknrideauto.com,http://localhost:8788,http://localhost:8789,http://127.0.0.1:8788,http://127.0.0.1:8789"
+  }
+}

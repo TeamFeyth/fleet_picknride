@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<!-- ============================================================
+     SITE CONFIG — the only block you edit to go live.
+     ============================================================ -->
+<script>
+window.PNR = {
+  /* Cloudflare Worker that turns a submission into an ADF lead. */
+  leadEndpoint: 'https://pnr-lead-relay.cold-smoke-4aef.workers.dev/lead',
+  /* Google Tag Manager container id. Empty = GTM stays off. */
+  gtmId: '',
+  /* CallRail swap script. Empty = dynamic number swap stays off. */
+  callRailSrc: '//cdn.callrail.com/companies/929436290/ee5c10fe11aff979d2f0/12/swap.js'
+};
+window.dataLayer = window.dataLayer || [];
+</script>
+
+<!-- GTM — loads only once a real container id is set above. -->
+<script>(function(w,d,s,l,i){if(!i)return;w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
+j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer',window.PNR.gtmId);</script>
+
+<!-- ============================================================
+     CALLRAIL dynamic number swap (company 929436290).
+     Every phone number is live text (never an image) and carries
+     class "cr-phone" so dynamic number insertion works.
+     ============================================================ -->
+<script>(function(){var s=window.PNR&&window.PNR.callRailSrc;if(!s)return;
+var t=document.createElement('script');t.type='text/javascript';t.async=true;t.src=s;
+document.head.appendChild(t);})();</script>
+
+
+<!-- ============================================================
+     ATTRIBUTION CAPTURE — runs before anything else so the click
+     ids survive scrolling, anchor jumps and back/forward.
+     First touch wins: a gclid is never overwritten within a session.
+     ============================================================ -->
+<script>
+(function(){
+  var KEYS = ['gclid','gbraid','wbraid','msclkid','fbclid','ttclid',
+              'utm_source','utm_medium','utm_campaign','utm_term','utm_content','utm_id',
+              'campaignid','adgroupid','creative','keyword','matchtype','network',
+              'device','devicemodel','placement','target','targetid','loc_physical_ms','loc_interest_ms'];
+  var STORE = 'pnr_attr';
+  var saved = {};
+  try { saved = JSON.parse(sessionStorage.getItem(STORE) || '{}'); } catch(e){}
+  var qs = new URLSearchParams(location.search || '');
+  KEYS.forEach(function(k){
+    var v = qs.get(k);
+    /* first touch wins — do not clobber an id already captured */
+    if (v && !saved[k]) saved[k] = v;
+  });
+  if (!saved.landing_page) saved.landing_page = location.origin + location.pathname + location.search;
+  if (!saved.referrer)     saved.referrer     = document.referrer || '(direct)';
+  if (!saved.first_seen)   saved.first_seen   = new Date().toISOString();
+  try { sessionStorage.setItem(STORE, JSON.stringify(saved)); } catch(e){}
+  window.PNR_ATTR = saved;
+})();
+</script>
+
+<title>Commercial Vans &amp; Trucks for Houston Business | Pick &amp; Ride</title>
+<meta name="description" content="Commercial vans and trucks ready for business in Houston. 150-point inspection, warranty options, personal and business financing. Call (832) 205-4321.">
+<link rel="canonical" href="https://www.picknrideauto.com/commercial-vans/">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0B0D0F">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Commercial Vans &amp; Trucks Ready for Business | Pick &amp; Ride Auto Sales">
+<meta property="og:description" content="Reliable fleet vehicles for Houston businesses. On the lot or special ordered.">
+<meta property="og:url" content="https://www.picknrideauto.com/commercial-vans/">
+<meta property="og:image" content="https://www.picknrideauto.com/assets/img/og-commercial-vans.jpg">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="714">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/img/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preload" as="image" href="assets/img/hero-1280.webp" imagesrcset="assets/img/hero-768.webp 768w, assets/img/hero-1280.webp 1280w, assets/img/hero-1920.webp 1920w" imagesizes="(max-width:900px) 100vw, 46vw" fetchpriority="high">
+
+<style>/* vietnamese */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/b377127c-abf4-40f0-9f98-ac7f63398339.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/77499f90-bbe4-4c15-a590-cfe28b615d35.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/9d5c634c-8c85-4a13-b4ea-cc9e61002ccf.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/c42754a0-6273-465f-aa4f-4f2ae2a0048e.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/0639c5a3-5bc8-4a0d-9a7b-5f764a504441.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/f63e2be9-6b09-4043-a710-ef2977609d99.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/96a586ed-d822-42b7-ad39-e750d9533a06.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/f7fa39c4-8d00-4a1f-8193-402f10533e2f.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/567b9d4f-de4b-42e6-a839-fc9207db3ddf.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/89481315-6de6-4c9f-89fb-f2fb5fc98f3a.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/e0649a21-ddaf-4861-841a-02532d3f629d.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Barlow';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/cdc663a4-2859-491d-bda7-9f9e12d2ef8b.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/6d6d6831-862f-41e9-9fdc-d1b7305d0b97.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/7fcb968f-be1b-4d4d-99e7-b4a451ea3e01.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("assets/fonts/7b6bfb93-0013-4ace-9398-8d7323eff3f5.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/3f8c7b21-815a-4fcd-b207-bd0a825b9b05.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/cbd2d35f-1e94-4b04-8025-9e83bf0f0dea.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/9d3c4a91-eb88-4631-b7a3-f38018504c6f.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/1df86a94-a448-46b0-a94c-efcf685d360f.woff2") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/731abb46-06c2-414b-bf16-7a2e065c1779.woff2") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Barlow Condensed';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/2e6ce747-4fc4-49b5-8931-a451fce05b29.woff2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ===== image slots (added when real photography was wired in) ===== */
+img.brand-mark{width:auto;height:38px;flex:0 0 auto;border-radius:0;background:none;object-fit:contain}
+.hero-photo.has-img{padding:0;display:block}
+.hero-photo.has-img picture,.hero-photo.has-img img{display:block;width:100%;height:100%;object-fit:cover}
+.v-img.has-img{padding:0}
+.v-img.has-img picture,.v-img.has-img img{display:block;width:100%;height:100%;object-fit:cover}
+.final-photo{max-width:860px;margin:0 auto 34px;border-radius:var(--r);overflow:hidden;border:1px solid var(--line-d)}
+.final-photo picture,.final-photo img{display:block;width:100%;height:auto}
+.form-err{display:none;margin-top:14px;padding:12px 14px;border-radius:8px;background:rgba(214,40,40,.12);border:1px solid rgba(214,40,40,.4);color:#FFD9D9;font-size:.92rem;line-height:1.5}
+.btn[aria-busy="true"]{opacity:.65;pointer-events:none}
+</style>
+
+<style>
+/* ============================================================
+   DESIGN TOKENS — Pick & Ride red / graphite theme
+   ============================================================ */
+:root{
+  --black:#0B0D0F;
+  --ink:#15181C;
+  --ink-2:#1E232A;
+  --line-d:#2C333B;
+  --light:#F1F2F4;
+  --line-l:#D9DDE2;
+  --red:#E31B23;
+  --red-dark:#B4111A;
+  --gold:#F0B41A;
+  --go:#2E9E6B;
+  --tier1:#E31B23;
+  --tier2:#3B7DD8;
+  --tier3:#2E9E6B;
+  --text-d:#F4F6F8;
+  --muted-d:#A7B0B9;
+  --text-l:#16191D;
+  --muted-l:#5C646E;
+  --white:#fff;
+  --r:4px;
+  --wrap:1180px;
+  --bar-h:72px;
+  --font-h:'Barlow Condensed','Arial Narrow',Helvetica,Arial,sans-serif;
+  --font-b:'Barlow',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--white);color:var(--text-l);
+  font-family:var(--font-b);font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:calc(var(--bar-h) + env(safe-area-inset-bottom));
+}
+img{max-width:100%;display:block}
+a{color:var(--red)}
+a:hover{color:var(--red-dark)}
+.wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 20px}
+
+h1,h2,h3{font-family:var(--font-h);font-weight:700;line-height:1.04;letter-spacing:.005em;margin:0 0 .5em;text-transform:uppercase}
+h1{font-size:clamp(2.15rem,6.4vw,3.7rem)}
+h2{font-size:clamp(1.75rem,5vw,2.85rem)}
+h3{font-size:1.2rem}
+p{margin:0 0 1.1em;text-wrap:pretty}
+.lede{font-size:clamp(1rem,2.4vw,1.14rem);color:var(--muted-l);line-height:1.6}
+.muted{color:var(--muted-l)}
+.kw,.hero h1 .kw{color:var(--red)}
+
+/* ---------------- Section themes ---------------- */
+section{padding:62px 0}
+@media(min-width:800px){section{padding:92px 0}}
+.sec-dark{background:var(--ink);color:var(--text-d)}
+.sec-dark .lede,.sec-dark .muted{color:var(--muted-d)}
+.sec-light{background:var(--light);color:var(--text-l)}
+.sec-white{background:var(--white);color:var(--text-l)}
+
+/* Centered section headers, as in the reference */
+section > .wrap > .eyebrow,
+section > .wrap > h2,
+section > .wrap > .lede{text-align:center}
+section > .wrap > h2{margin-bottom:.35em}
+section > .wrap > .lede{margin-left:auto;margin-right:auto}
+.eyebrow{display:block;font-family:var(--font-h);font-weight:600;font-size:.82rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:10px}
+
+/* ---------------- Buttons ---------------- */
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  padding:17px 26px;border:0;border-radius:3px;
+  font-family:var(--font-h);font-weight:700;font-size:1.14rem;text-transform:uppercase;
+  letter-spacing:.05em;text-decoration:none;cursor:pointer;line-height:1.15;text-align:center;
+  transition:background .16s ease,color .16s ease,border-color .16s ease;
+}
+.btn-call{background:var(--red);color:var(--white)}
+.btn-call:hover{background:var(--red-dark);color:var(--white)}
+.btn-ghost{background:transparent;color:var(--text-d);border:1px solid rgba(255,255,255,.35);font-size:1rem;letter-spacing:.08em}
+.btn-ghost:hover{border-color:var(--white);background:rgba(255,255,255,.06);color:var(--white)}
+.sec-light .btn-ghost,.sec-white .btn-ghost{color:var(--text-l);border-color:var(--line-l)}
+.btn-sm{padding:13px 18px;font-size:.98rem}
+@media(min-width:560px){.btn{width:auto;min-width:250px}}
+.btn-row{display:flex;flex-direction:column;gap:12px;margin:26px 0 18px}
+@media(min-width:560px){.btn-row{flex-direction:row;flex-wrap:wrap;align-items:center}}
+section > .wrap > .btn-row{justify-content:center}
+.ico{width:20px;height:20px;flex:0 0 20px;fill:currentColor}
+
+/* ---------------- Sticky header ---------------- */
+.site-head{position:sticky;top:0;z-index:60;background:rgba(11,13,15,.95);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--line-d)}
+.head-in{display:flex;align-items:center;justify-content:space-between;gap:14px;height:66px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;min-width:0;color:var(--text-d)}
+.brand-mark{width:38px;height:38px;flex:0 0 38px;border-radius:3px;background:var(--red);display:grid;place-items:center;font-family:var(--font-h);font-weight:700;color:var(--white);font-size:1.02rem;letter-spacing:.02em}
+.brand-name{font-family:var(--font-h);font-weight:700;font-size:1.08rem;letter-spacing:.03em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--white)}
+.brand-name span{color:var(--red)}
+.head-call{display:none;align-items:center;gap:9px;text-decoration:none;background:var(--red);color:var(--white);padding:11px 22px;border-radius:3px;font-family:var(--font-h);font-weight:700;font-size:1.1rem;letter-spacing:.03em;white-space:nowrap}
+.head-call:hover{background:var(--red-dark);color:var(--white)}
+@media(min-width:800px){.head-call{display:inline-flex}}
+
+/* ---------------- Hero ---------------- */
+.hero{
+  position:relative;padding:52px 0 56px;color:var(--text-d);
+  background:radial-gradient(950px 420px at 82% 4%, rgba(227,27,35,.22), transparent 64%),
+             linear-gradient(180deg,#1B1F25 0%, var(--black) 100%);
+  overflow:hidden;
+}
+@media(min-width:900px){.hero{padding:78px 0 84px}}
+.hero::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--red)}
+.hero .lede{color:#CFD5DC;max-width:560px}
+.hero-grid{display:grid;gap:34px}
+@media(min-width:940px){.hero-grid{grid-template-columns:1.02fr .98fr;align-items:center;gap:50px}}
+.hero-photo{position:relative;border-radius:var(--r);overflow:hidden;border:1px solid var(--line-d);background:linear-gradient(155deg,#262C34,#14181D);aspect-ratio:4/3;display:grid;place-items:center;text-align:center;padding:26px}
+.ph-note{color:var(--muted-d);font-size:.86rem;max-width:270px;line-height:1.45}
+.ph-ico{width:64px;height:64px;fill:#3A424B;margin:0 auto 14px}
+.photo-tag{position:absolute;left:0;bottom:0;background:var(--red);color:var(--white);padding:10px 16px;font-family:var(--font-h);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:.86rem}
+
+/* ---------------- Hero callout strip ---------------- */
+.callouts{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-d);border:1px solid var(--line-d);border-radius:var(--r);overflow:hidden;margin-top:34px}
+@media(min-width:820px){.callouts{grid-template-columns:repeat(4,1fr)}}
+.co{background:var(--ink-2);padding:20px 16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:9px}
+.co svg{width:26px;height:26px;fill:none;stroke:var(--red);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.co b{font-family:var(--font-h);font-weight:700;font-size:1.06rem;line-height:1.15;text-transform:uppercase;letter-spacing:.03em;color:var(--white)}
+.co span{font-size:.79rem;color:var(--muted-d);line-height:1.35}
+.co .rating{font-size:1.7rem;line-height:1;color:var(--white)}
+.co .rating i{font-style:normal;color:var(--gold);font-size:1.1rem}
+
+/* ---------------- Value cards ---------------- */
+.cost-grid{display:grid;gap:18px;margin-top:38px}
+@media(min-width:760px){.cost-grid{grid-template-columns:repeat(3,1fr)}}
+.cost-card{background:var(--white);border:1px solid var(--line-l);border-top:3px solid var(--red);border-radius:var(--r);padding:26px}
+.cost-card svg{width:30px;height:30px;fill:none;stroke:var(--red);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:12px}
+.cost-card h3{color:var(--text-l);margin-bottom:8px}
+.cost-card p{margin:0;color:var(--muted-l);font-size:.97rem}
+
+/* ============================================================
+   CAROUSEL (inventory + testimonials)
+   ============================================================ */
+.car-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.car-nav{display:flex;gap:9px}
+.car-btn{width:44px;height:44px;border-radius:3px;border:1px solid var(--line-l);background:var(--white);color:var(--text-l);cursor:pointer;display:grid;place-items:center;transition:background .16s,border-color .16s,color .16s}
+.car-btn:hover{background:var(--red);border-color:var(--red);color:var(--white)}
+.car-btn:disabled{opacity:.35;cursor:default}
+.sec-dark .car-btn{background:var(--ink-2);border-color:var(--line-d);color:var(--text-d)}
+.sec-dark .car-btn:hover{background:var(--red);border-color:var(--red);color:var(--white)}
+.car-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.rail{
+  display:grid;grid-auto-flow:column;grid-auto-columns:minmax(272px,1fr);gap:18px;
+  overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  padding:28px 0 10px;margin:0 -20px;padding-left:20px;padding-right:20px;
+  scrollbar-width:none;
+}
+.rail::-webkit-scrollbar{display:none}
+.rail>*{scroll-snap-align:start}
+@media(min-width:760px){.rail{grid-auto-columns:minmax(300px,1fr);margin:0;padding-left:0;padding-right:0}}
+
+/* ---------------- Vehicle card ---------------- */
+.v-card{display:flex;flex-direction:column;background:var(--ink);border-radius:var(--r);overflow:hidden;color:var(--text-d)}
+.v-img{position:relative;aspect-ratio:16/10;background:linear-gradient(155deg,#262C34,#14181D);display:grid;place-items:center}
+.v-img svg.van{width:74px;height:74px;fill:#3A424B}
+/* Visible marker so sample listings cannot ship by accident */
+.sample{position:absolute;top:10px;left:10px;background:var(--gold);color:#1A1200;font-family:var(--font-h);font-weight:700;font-size:.7rem;letter-spacing:.14em;padding:5px 9px;border-radius:2px;text-transform:uppercase}
+.v-body{padding:18px 18px 18px;flex:1;display:flex;flex-direction:column}
+.v-body h3{margin:0 0 3px;font-size:1.22rem;letter-spacing:.03em;color:var(--white);min-height:2.3em}
+.v-sub{font-size:.8rem;color:var(--muted-d);text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--line-d)}
+.v-specs{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;padding:14px 0;border-top:1px solid var(--line-d);border-bottom:1px solid var(--line-d);margin-bottom:16px}
+.v-spec{display:flex;align-items:center;gap:9px;font-size:.85rem;color:#C3CAD2}
+.v-spec svg{width:18px;height:18px;flex:0 0 18px;fill:none;stroke:var(--red);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.v-card .btn{margin-top:auto;width:100%;min-width:0}
+
+/* ---------------- Testimonials ---------------- */
+.score{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:20px}
+.score-num{font-family:var(--font-h);font-weight:700;font-size:3.6rem;line-height:1;color:var(--white)}
+.score-stars{color:var(--gold);font-size:1.5rem;letter-spacing:4px;line-height:1}
+.score-sub{font-size:.88rem;color:var(--muted-d);margin-top:5px}
+.t-card{background:var(--ink-2);border:1px solid var(--line-d);border-radius:var(--r);padding:26px;display:flex;flex-direction:column}
+.t-stars{color:var(--gold);letter-spacing:3px;margin-bottom:13px}
+.t-card blockquote{margin:0 0 12px;font-size:1rem;line-height:1.6;color:#DDE3EA;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden}
+.t-card.open blockquote{-webkit-line-clamp:unset;overflow:visible}
+.rev-more{display:none;align-self:flex-start;margin:0 0 18px;padding:0;background:none;border:0;border-bottom:1px solid rgba(227,27,35,.55);color:var(--red);font-family:var(--font-h);font-weight:700;font-size:.92rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.rev-more:hover{color:var(--white);border-bottom-color:var(--white)}
+.t-card .who{margin-top:auto}
+.who{display:flex;align-items:center;gap:13px}
+.who .av{width:50px;height:50px;flex:0 0 50px;border-radius:50%;background:#2A313A;border:1px solid var(--line-d);display:grid;place-items:center;overflow:hidden}
+.who .av svg{width:26px;height:26px;fill:#4A5561}
+.who b{display:block;font-size:.95rem;color:var(--white)}
+.who span{display:block;font-size:.82rem;color:var(--muted-d)}
+
+/* ---------------- Steps ---------------- */
+.steps{counter-reset:s;display:grid;gap:22px;margin-top:44px}
+@media(min-width:820px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{position:relative;background:var(--ink-2);border:1px solid var(--line-d);border-radius:var(--r);padding:34px 24px 24px}
+.step::before{counter-increment:s;content:counter(s);position:absolute;top:-20px;left:24px;width:44px;height:44px;border-radius:3px;background:var(--red);color:var(--white);display:grid;place-items:center;font-family:var(--font-h);font-weight:700;font-size:1.4rem}
+.step h3{margin-top:10px;color:var(--white)}
+.step p{margin:0;color:var(--muted-d);font-size:.96rem}
+
+/* ============================================================
+   WARRANTY INFOGRAPHIC
+   ============================================================ */
+.dt-legend{display:flex;flex-wrap:wrap;gap:10px;margin:28px 0 22px;justify-content:center}
+.chip{display:inline-flex;align-items:center;gap:9px;background:var(--white);border:1px solid var(--line-l);border-radius:100px;padding:9px 18px;font-size:.87rem;font-weight:600}
+.chip i{width:11px;height:11px;border-radius:2px;display:block}
+.dt-wrap{background:var(--ink);border:1px solid var(--line-d);border-radius:var(--r);padding:18px;overflow-x:auto}
+.dt-wrap svg{display:block;min-width:720px;width:100%;height:auto}
+.dt-cap{font-size:.82rem;color:var(--muted-l);margin:14px 2px 0;line-height:1.5;text-align:center}
+
+.tiers{display:grid;gap:18px;margin-top:28px}
+@media(min-width:860px){.tiers{grid-template-columns:repeat(3,1fr)}}
+.tier{background:var(--light);border:1px solid var(--line-l);border-top:3px solid var(--line-l);border-radius:var(--r);padding:26px;display:flex;flex-direction:column}
+.tier.t1{border-top-color:var(--tier1)}
+.tier.t2{border-top-color:var(--tier2)}
+.tier.t3{border-top-color:var(--tier3)}
+.tier h3{margin-bottom:4px}
+.tier.t1 h3{color:var(--tier1)}
+.tier.t2 h3{color:var(--tier2)}
+.tier.t3 h3{color:var(--tier3)}
+.tier .t-note{font-size:.85rem;color:var(--muted-l);margin-bottom:16px}
+.cov{list-style:none;margin:0;padding:0;font-size:.94rem;color:#3C444E}
+.cov li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line-l)}
+.cov li:last-child{border-bottom:0}
+.cov svg{width:17px;height:17px;flex:0 0 17px;margin-top:4px;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.t1 .cov svg{stroke:var(--tier1)} .t2 .cov svg{stroke:var(--tier2)} .t3 .cov svg{stroke:var(--tier3)}
+.cov li.more{display:none}
+.tier.open .cov li.more{display:flex}
+.more-btn{margin-top:16px;background:none;border:1px solid var(--line-l);color:var(--text-l);border-radius:3px;padding:11px 16px;font-family:var(--font-h);font-weight:700;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:border-color .16s,background .16s,color .16s}
+.more-btn:hover{border-color:var(--red);background:var(--red);color:var(--white)}
+
+/* ---------------- Financing ---------------- */
+.fin-grid{display:grid;gap:18px;margin-top:38px}
+@media(min-width:700px){.fin-grid{grid-template-columns:repeat(2,1fr)}}
+.fin-card{background:var(--white);border:1px solid var(--line-l);border-radius:var(--r);padding:26px}
+.fin-card svg.fi{width:30px;height:30px;fill:none;stroke:var(--red);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;margin-bottom:14px}
+.fin-card h3{margin-bottom:7px}
+.fin-card p{margin:0;color:var(--muted-l);font-size:.95rem}
+.docs{background:var(--ink);color:var(--text-d);border-radius:var(--r);padding:30px;margin-top:18px}
+.docs h3{color:var(--red)}
+.docs ol{margin:12px 0 0;padding-left:20px;color:#C9D0D8}
+.docs li{margin-bottom:9px}
+.docs .muted{color:var(--muted-d)}
+
+/* ---------------- FAQ ---------------- */
+.faq{max-width:900px;margin:34px auto 0}
+details{background:var(--light);border:1px solid transparent;border-radius:3px;margin-bottom:10px;overflow:hidden}
+details[open]{border-color:var(--line-l)}
+summary{cursor:pointer;padding:19px 56px 19px 22px;position:relative;list-style:none;font-family:var(--font-b);font-weight:600;font-size:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:22px;top:50%;transform:translateY(-50%);color:var(--red);font-family:var(--font-h);font-weight:700;font-size:1.6rem;line-height:1}
+details[open] summary::after{content:"\2013"}
+details .ans{padding:0 22px 20px;color:var(--muted-l);font-size:.97rem}
+details .ans p:last-child{margin-bottom:0}
+
+/* ---------------- Final CTA ---------------- */
+.final{background:radial-gradient(780px 340px at 50% 0%, rgba(227,27,35,.22), transparent 66%), var(--black);color:var(--text-d);text-align:center}
+.final .btn-row{justify-content:center}
+.hours-note{font-size:.92rem;color:var(--muted-d);margin-top:6px}
+.callback{max-width:540px;margin:40px auto 0;background:var(--ink);border:1px solid var(--line-d);border-radius:var(--r);padding:30px;text-align:left}
+.callback h3{font-size:1.2rem;margin-bottom:6px;color:var(--white)}
+.callback .muted{color:var(--muted-d)}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:.84rem;font-weight:600;color:var(--muted-d);margin-bottom:6px}
+.field input,.field select{width:100%;padding:14px 15px;border-radius:3px;border:1px solid var(--line-d);background:var(--ink-2);color:var(--text-d);font-size:16px;font-family:inherit}
+.field input:focus,.field select:focus{outline:2px solid var(--red);outline-offset:1px;border-color:transparent}
+.consent{font-size:.79rem;color:var(--muted-d);line-height:1.5;margin:12px 0 0}
+.form-ok{display:none;background:rgba(46,158,107,.14);border:1px solid rgba(46,158,107,.45);color:#7BE3AF;padding:15px;border-radius:3px;font-size:.94rem}
+
+/* ---------------- Footer ---------------- */
+.site-foot{background:var(--black);color:var(--text-d);padding:52px 0 34px;font-size:.94rem}
+.foot-grid{display:grid;gap:30px}
+@media(min-width:760px){.foot-grid{grid-template-columns:1.3fr 1fr 1fr}}
+.site-foot h4{font-family:var(--font-h);font-weight:700;text-transform:uppercase;font-size:1rem;letter-spacing:.12em;color:var(--red);margin:0 0 12px}
+.site-foot address{font-style:normal;color:#BFC6CE;line-height:1.8}
+.site-foot a{color:#BFC6CE;text-decoration:none}
+.site-foot a:hover{color:var(--white);text-decoration:underline}
+.legal{border-top:1px solid var(--line-d);margin-top:34px;padding-top:20px;color:#7E878F;font-size:.79rem;line-height:1.6}
+.legal a{color:#7E878F}
+
+/* ---------------- Sticky mobile call bar ---------------- */
+.call-bar{position:fixed;left:0;right:0;bottom:0;z-index:80;display:flex;gap:10px;align-items:center;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(11,13,15,.97);border-top:1px solid var(--line-d);backdrop-filter:blur(8px);color:var(--text-d)}
+.call-bar .cb-txt{flex:1;min-width:0}
+.call-bar .cb-txt b{display:block;font-family:var(--font-h);font-weight:700;font-size:1.06rem;line-height:1.2;text-transform:uppercase;letter-spacing:.03em}
+.call-bar .cb-txt span{display:block;font-size:.75rem;color:var(--muted-d);margin-top:2px}
+.call-bar .btn{width:auto;min-width:0;flex:0 0 auto;padding:14px 24px;font-size:1.04rem}
+@media(min-width:800px){.call-bar{display:none}body{padding-bottom:0}}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:12px;top:12px;z-index:200;background:var(--red);color:var(--white);padding:11px 16px;border-radius:3px;font-weight:700}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.rail{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<!-- GTM noscript: restore once a real container id is configured. -->
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ================= STICKY HEADER ================= -->
+<header class="site-head">
+  <div class="wrap head-in">
+    <a class="brand" href="/">
+      <img class="brand-mark" src="assets/img/logo-160.webp" width="160" height="148" alt="Pick &amp; Ride Auto Sales" decoding="async">
+      <span class="brand-name">Pick &amp; Ride <span>Auto Sales</span></span>
+    </a>
+    <a class="head-call" href="tel:+18322054321" data-cta="header-call">
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"></path></svg>
+      <span class="cr-phone">(832) 205-4321</span>
+    </a>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>Commercial <span class="kw" id="kwSlot">Vans and Trucks</span> Ready for Business</h1>
+
+      <p class="lede">Reliable fleet vehicles for Houston businesses. We keep options on the lot and can special order the exact spec you need.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-call" href="tel:+18322054321" data-cta="hero-call">
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"></path></svg>
+          <span>Call <span class="cr-phone">(832) 205-4321</span></span>
+        </a>
+        <a class="btn btn-ghost" href="#inventory" data-cta="hero-scroll">View inventory</a>
+      </div>
+
+    </div>
+
+    <!-- IMAGE SLOT: real van on the Pick & Ride lot, cargo doors open, daylight. -->
+    <div class="hero-photo has-img">
+      <picture>
+        <source type="image/webp" srcset="assets/img/hero-768.webp 768w, assets/img/hero-1280.webp 1280w, assets/img/hero-1920.webp 1920w" sizes="(max-width:900px) 100vw, 46vw">
+        <img src="assets/img/hero-1280.jpg" width="1280" height="714" fetchpriority="high" decoding="async" alt="Business owner with a cargo van on the Pick &amp; Ride Auto Sales lot in Houston">
+      </picture>
+      <span class="photo-tag">150-point inspection on every vehicle</span>
+    </div>
+  </div>
+
+  <!-- Callout strip: full width so each item gets room to breathe -->
+  <div class="wrap">
+      <div class="callouts">
+        <div class="co">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.6 5.6 6.1.8-4.5 4.2 1.2 6.1L12 16.8 6.6 19.7l1.2-6.1L3.3 9.4l6.1-.8L12 3Z"></path></svg>
+          <b class="rating">4.9 <i>★</i></b>
+          <span>Customer rating</span>
+        </div>
+        <div class="co">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l4 4v16H6z"></path><path d="M14 2v4h4"></path><path d="M9 12h6M9 16h6"></path></svg>
+          <b>No Pay Stubs Needed</b>
+          <span>We can work from bank statements</span>
+        </div>
+        <div class="co">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 7h20v12H2z"></path><path d="M2 11h20"></path><path d="M6 15h4"></path></svg>
+          <b>Personal &amp; Business Financing</b>
+          <span>Both available</span>
+        </div>
+        <div class="co">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6h11v10H2z"></path><path d="M13 9h4l3 3.5V16h-7z"></path><circle cx="6" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg>
+          <b>Delivery Available</b>
+          <span>We can transport to you</span>
+        </div>
+      </div>
+  </div>
+</section>
+
+<!-- ================= VALUE / GROW YOUR FLEET ================= -->
+<section class="value sec-light">
+  <div class="wrap">
+    <span class="eyebrow">Built for business</span>
+    <h2>Grow Your Fleet to Grow Your Business</h2>
+    <p class="lede" style="max-width:790px">We work with business owners and entrepreneurs across a lot of different trades, so we understand what our customers need from a work vehicle. Every unit goes through a 150-point inspection before it is delivered, so your fleet spends its time on jobs instead of in the shop.</p>
+
+    <div class="cost-grid">
+      <div class="cost-card">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.3-8 9-4.6-.7-8-4-8-9V6l8-3Z"></path><path d="m9 12 2 2 4-4"></path></svg>
+        <h3>Warranty available</h3>
+        <p>Coverage can be added to most vehicles, from powertrain protection on the engine, transmission and drive axle up to full bumper-to-bumper plans. Ask what is available on the unit you are looking at.</p>
+      </div>
+      <div class="cost-card">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h11v8H3z"></path><path d="M14 10h4l3 3.5V16h-7z"></path><circle cx="7" cy="18" r="1.8"></circle><circle cx="17.5" cy="18" r="1.8"></circle><path d="M6 5h9"></path></svg>
+        <h3>Large fleet inventory</h3>
+        <p>Diesel and gas trucks and cargo vans, and we can handle large orders. Place an order for what you need and we will source it at the best price we can get without dropping our quality standards.</p>
+      </div>
+      <div class="cost-card">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 1-5.4 5.4L4 17v3h3l5.3-5.3a4 4 0 0 1 5.4-5.4l-2.5 2.5 1.5 1.5 2.5-2.5a4 4 0 0 1-4.5-4.5Z"></path></svg>
+        <h3>Service already done</h3>
+        <p>Routine service and preliminary repairs are completed to the manufacturer's recommendations for that vehicle's mileage, so you are not inheriting somebody else's deferred maintenance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INVENTORY CAROUSEL ================= -->
+<section id="inventory" class="sec-white">
+  <div class="wrap">
+    <div class="car-head">
+      <div>
+        <span class="eyebrow">Current inventory</span>
+        <h2 style="margin-bottom:0">Find the Right Vehicle</h2>
+      </div>
+      <div class="car-nav">
+        <button class="car-btn" type="button" data-rail="invRail" data-dir="-1" aria-label="Previous vehicles">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg>
+        </button>
+        <button class="car-btn" type="button" data-rail="invRail" data-dir="1" aria-label="Next vehicles">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ⚠ SAMPLE LISTINGS. Every card below carries a visible SAMPLE badge.
+         Replace image slot, title, specs and mileage with real units before launch.
+         See README.md — Go-live checklist. -->
+    <div class="rail" id="invRail">
+
+      <article class="v-card">
+        <div class="v-img has-img">
+          <picture>
+            <source type="image/webp" srcset="assets/img/sprinter-480.webp 480w, assets/img/sprinter-800.webp 800w" sizes="(max-width:700px) 86vw, 340px">
+            <img src="assets/img/sprinter-800.jpg" width="800" height="447" loading="lazy" decoding="async" alt="Mercedes-Benz Sprinter 2500 high roof cargo van at Pick &amp; Ride Auto Sales">
+          </picture>
+        </div>
+        <div class="v-body">
+          <h3>Mercedes-Benz Sprinter 2500</h3>
+          <div class="v-sub">High Roof · 144" Wheelbase</div>
+          <a class="btn btn-call btn-sm" href="tel:+18322054321" data-cta="inv-sprinter">Call to book a test drive</a>
+        </div>
+      </article>
+
+      <article class="v-card">
+        <div class="v-img has-img">
+          <picture>
+            <source type="image/webp" srcset="assets/img/transit-480.webp 480w, assets/img/transit-800.webp 800w" sizes="(max-width:700px) 86vw, 340px">
+            <img src="assets/img/transit-800.jpg" width="800" height="447" loading="lazy" decoding="async" alt="Ford Transit 250 medium roof cargo van at Pick &amp; Ride Auto Sales">
+          </picture>
+        </div>
+        <div class="v-body">
+          <h3>Ford Transit 250</h3>
+          <div class="v-sub">Medium Roof · 148" Wheelbase</div>
+          <a class="btn btn-call btn-sm" href="tel:+18322054321" data-cta="inv-transit">Call to book a test drive</a>
+        </div>
+      </article>
+
+      <article class="v-card">
+        <div class="v-img has-img">
+          <picture>
+            <source type="image/webp" srcset="assets/img/promaster-480.webp 480w, assets/img/promaster-800.webp 800w" sizes="(max-width:700px) 86vw, 340px">
+            <img src="assets/img/promaster-800.jpg" width="800" height="447" loading="lazy" decoding="async" alt="RAM ProMaster 2500 high roof cargo van at Pick &amp; Ride Auto Sales">
+          </picture>
+        </div>
+        <div class="v-body">
+          <h3>RAM ProMaster 2500</h3>
+          <div class="v-sub">High Roof · 159" Wheelbase</div>
+          <a class="btn btn-call btn-sm" href="tel:+18322054321" data-cta="inv-promaster">Call to book a test drive</a>
+        </div>
+      </article>
+
+      <article class="v-card">
+        <div class="v-img has-img">
+          <picture>
+            <source type="image/webp" srcset="assets/img/express-480.webp 480w, assets/img/express-800.webp 800w" sizes="(max-width:700px) 86vw, 340px">
+            <img src="assets/img/express-800.jpg" width="800" height="447" loading="lazy" decoding="async" alt="Chevrolet Express 2500 cargo van at Pick &amp; Ride Auto Sales">
+          </picture>
+        </div>
+        <div class="v-body">
+          <h3>Chevrolet Express 2500</h3>
+          <div class="v-sub">Cargo · 135" Wheelbase</div>
+          <a class="btn btn-call btn-sm" href="tel:+18322054321" data-cta="inv-express">Call to book a test drive</a>
+        </div>
+      </article>
+
+    </div>
+
+    <p class="muted" style="font-size:.9rem;margin-top:10px">Inventory changes weekly. Call for what is on the ground today, or to place a special order.</p>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="proof sec-dark">
+  <div class="wrap">
+    <div class="car-head">
+      <div>
+        <span class="eyebrow">Customer reviews</span>
+        <h2 style="margin-bottom:0">Rated 4.9 by Houston Business Owners</h2>
+        <div class="score">
+          <div class="score-num">4.9</div>
+          <div>
+            <div class="score-stars" aria-label="4.9 out of 5 stars">★★★★★</div>
+            <div class="score-sub">[CONFIRM] Based on XX verified reviews</div>
+          </div>
+        </div>
+      </div>
+      <div class="car-nav">
+        <button class="car-btn" type="button" data-rail="revRail" data-dir="-1" aria-label="Previous reviews">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"></path></svg>
+        </button>
+        <button class="car-btn" type="button" data-rail="revRail" data-dir="1" aria-label="Next reviews">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"></path></svg>
+        </button>
+      </div>
+    </div>
+    <div class="rail" id="revRail">
+      <div class="t-card">
+        <div class="t-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>Great experience at Pick &amp; Ride Auto Sales! They’re super professional, no BS, and really know their stuff. Love my new-to-me car, runs perfect and was a fair price. Highly recommend! 🚗👍</blockquote>
+        <button class="rev-more" type="button">Read more</button>
+        <div class="who">
+          <span class="av" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2c-4 0-7 2.2-7 5v1h14v-1c0-2.8-3-5-7-5Z"></path></svg></span>
+          <div><b>Edil Nahun Peña</b><span>Google review</span></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>I recently purchased a beautiful car from Pick &amp; Ride, I could’n be happier! From start to finish, The experience was fantastic. Raúl was an incredible help througout the entire process. He was professional, knowledgeable, and genuinely cared about finding the perfect car for me.</blockquote>
+        <button class="rev-more" type="button">Read more</button>
+        <div class="who">
+          <span class="av" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2c-4 0-7 2.2-7 5v1h14v-1c0-2.8-3-5-7-5Z"></path></svg></span>
+          <div><b>Harvin Rosales</b><span>Google review</span></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>The dealer provided me with a good car, their positive and helpful attitude made the overall experience satisfactory.</blockquote>
+        <button class="rev-more" type="button">Read more</button>
+        <div class="who">
+          <span class="av" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2c-4 0-7 2.2-7 5v1h14v-1c0-2.8-3-5-7-5Z"></path></svg></span>
+          <div><b>Mohammad azim Ayoubi</b><span>Google review</span></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>The only place I will ever go to. They are very helpful and will do everything in their power to get you in a vehicle</blockquote>
+        <button class="rev-more" type="button">Read more</button>
+        <div class="who">
+          <span class="av" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2c-4 0-7 2.2-7 5v1h14v-1c0-2.8-3-5-7-5Z"></path></svg></span>
+          <div><b>Robert Griggs</b><span>Google review</span></div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <blockquote>5 stars because we can't give 10! 👌 Great deal from start to finish, 🥇🎉 highly recommended! Raul 🧒🏻 helped us and was able to show us a vehicle that fit our budget. 🤑 We left happy with our 2015 Hyundai Elantra. 🤗🥳 The car never gave us any trouble 👌🚘 and to this day it's still in perfect condition 🕘. The customer service was excellent, with hard work and determination! We will definitely recommend it to our friends and family. 🙋‍♀️🙋‍♂️👨‍🔧🧑‍⚕️</blockquote>
+        <button class="rev-more" type="button">Read more</button>
+        <div class="who">
+          <span class="av" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2c-4 0-7 2.2-7 5v1h14v-1c0-2.8-3-5-7-5Z"></path></svg></span>
+          <div><b>Greybell Loaisiga</b><span>Google review</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 1-2-3 ================= -->
+<section class="sec-dark">
+  <div class="wrap">
+    <span class="eyebrow">The process</span>
+    <h2>As Easy as 1, 2, 3</h2>
+    <div class="steps">
+      <div class="step">
+        <h3>Your fleet</h3>
+        <p>Choose the vehicle that fits your business needs. Tell us the trade and what you carry and we will point you at the units that work, on the lot or by special order.</p>
+      </div>
+      <div class="step">
+        <h3>Easy same-day financing</h3>
+        <p>We work with self-employed buyers and with customers financing under an EIN or a business name. Bring your paperwork and we can usually get you an answer the same day.</p>
+      </div>
+      <div class="step">
+        <h3>Drive with confidence</h3>
+        <p>Your vehicle leaves inspected, serviced and ready for work on day one. Start the job, start billing, and put the truck to work instead of waiting on a shop.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BUY WITH CONFIDENCE / WARRANTY ================= -->
+<section class="value sec-white">
+  <div class="wrap">
+    <span class="eyebrow">Warranty coverage</span>
+    <h2>Buy With Confidence</h2>
+    <p class="lede" style="max-width:800px">Coverage is built around the drivetrain, the parts that cost the most to fix. Each tier adds to the one before it, so you are picking how far out from the engine you want protection to reach.</p>
+
+    <div class="dt-legend">
+      <span class="chip"><i style="background:var(--tier1)"></i> Tier 1 · Powertrain</span>
+      <span class="chip"><i style="background:var(--tier2)"></i> Tier 2 · Powertrain Plus</span>
+      <span class="chip"><i style="background:var(--tier3)"></i> Tier 3 · Comprehensive</span>
+    </div>
+
+    <!-- ============================================================
+         DRIVETRAIN INFOGRAPHIC — top-down schematic, rear-wheel drive
+         (correct layout for Sprinter / Transit / Express).
+         Fill colors map to warranty tier. Coverage lists below are
+         INDUSTRY-STANDARD PLACEHOLDERS and must be replaced with the
+         provider's actual contract terms. See README.md — Go-live checklist.
+         ============================================================ -->
+    <div class="dt-wrap">
+      <svg viewBox="0 0 960 400" role="img" aria-labelledby="dtTitle dtDesc">
+        <title id="dtTitle">Drivetrain diagram showing warranty coverage by tier</title>
+        <desc id="dtDesc">Top-down view of a rear-wheel-drive commercial van drivetrain. Engine, transmission, transfer case, driveshaft and differential are Tier 1 powertrain coverage. Axle shafts, water pump and air conditioning compressor are Tier 2. Steering, suspension, brakes, fuel system and electrical are Tier 3.</desc>
+
+        <!-- vehicle body outline -->
+        <rect x="70" y="66" width="820" height="268" rx="44" fill="#161C24" stroke="#2F3945" stroke-width="2"></rect>
+        <text x="90" y="52" fill="#6B7885" font-family="Helvetica,Arial" font-size="14" font-weight="700" letter-spacing="1.5">FRONT</text>
+        <text x="835" y="52" fill="#6B7885" font-family="Helvetica,Arial" font-size="14" font-weight="700" letter-spacing="1.5">REAR</text>
+
+        <!-- wheels -->
+        <g fill="#2B3540" stroke="#3E4A58" stroke-width="2">
+          <rect x="150" y="40" width="74" height="46" rx="10"></rect>
+          <rect x="150" y="314" width="74" height="46" rx="10"></rect>
+          <rect x="700" y="40" width="74" height="46" rx="10"></rect>
+          <rect x="700" y="314" width="74" height="46" rx="10"></rect>
+        </g>
+
+        <!-- TIER 3: brakes at each wheel -->
+        <g fill="none" stroke="var(--tier3)" stroke-width="5" stroke-linecap="round">
+          <path d="M187 90v16"></path><path d="M187 294v16"></path>
+          <path d="M737 90v16"></path><path d="M737 294v16"></path>
+        </g>
+        <!-- TIER 3: steering rack -->
+        <rect x="176" y="112" width="120" height="13" rx="6" fill="var(--tier3)"></rect>
+        <!-- TIER 3: suspension coils -->
+        <g stroke="var(--tier3)" stroke-width="3.5" fill="none" stroke-linecap="round">
+          <path d="M244 52c10 6 10 12 0 18s-10 12 0 18"></path>
+          <path d="M244 320c10 6 10 12 0 18s-10 12 0 18"></path>
+        </g>
+        <!-- TIER 3: fuel tank -->
+        <rect x="500" y="268" width="118" height="52" rx="9" fill="var(--tier3)" opacity=".9"></rect>
+        <!-- TIER 3: battery / electrical -->
+        <rect x="176" y="272" width="74" height="44" rx="8" fill="var(--tier3)" opacity=".9"></rect>
+
+        <!-- TIER 2: water pump + A/C compressor -->
+        <circle cx="163" cy="176" r="21" fill="var(--tier2)"></circle>
+        <circle cx="163" cy="232" r="19" fill="var(--tier2)"></circle>
+
+        <!-- TIER 1: engine -->
+        <rect x="192" y="140" width="132" height="120" rx="12" fill="var(--tier1)"></rect>
+        <g stroke="#1A0D02" stroke-width="3" opacity=".35">
+          <path d="M214 162v76"></path><path d="M244 162v76"></path><path d="M274 162v76"></path><path d="M304 162v76"></path>
+        </g>
+        <!-- TIER 1: transmission -->
+        <path d="M330 162h96l14 24-14 24h-96z" fill="var(--tier1)"></path>
+        <!-- TIER 1: transfer case -->
+        <rect x="446" y="170" width="48" height="60" rx="9" fill="var(--tier1)"></rect>
+        <!-- TIER 1: driveshaft -->
+        <rect x="494" y="190" width="148" height="20" rx="10" fill="var(--tier1)"></rect>
+        <rect x="562" y="182" width="16" height="36" rx="5" fill="var(--tier1)"></rect>
+        <!-- TIER 1: differential -->
+        <circle cx="676" cy="200" r="46" fill="var(--tier1)"></circle>
+        <circle cx="676" cy="200" r="22" fill="#1A0D02" opacity=".28"></circle>
+
+        <!-- TIER 2: rear axle shafts -->
+        <rect x="666" y="86" width="20" height="72" rx="9" fill="var(--tier2)"></rect>
+        <rect x="666" y="242" width="20" height="72" rx="9" fill="var(--tier2)"></rect>
+
+        <!-- labels -->
+        <g font-family="Helvetica,Arial" font-size="13" font-weight="700" fill="#C6D0DA">
+          <text x="258" y="253" text-anchor="middle" fill="#2A1102" font-size="15">ENGINE</text>
+          <text x="378" y="148" text-anchor="middle">Transmission</text>
+          <text x="470" y="252" text-anchor="middle">Transfer case</text>
+          <text x="568" y="176" text-anchor="middle">Driveshaft</text>
+          <text x="676" y="176" text-anchor="middle" fill="#1A0D02">Diff.</text>
+          <text x="712" y="128" fill="#8FC2FA">Axle shaft</text>
+          <text x="712" y="292" fill="#8FC2FA">Axle shaft</text>
+          <text x="128" y="176" text-anchor="end" fill="#8FC2FA">Water pump</text>
+          <text x="128" y="238" text-anchor="end" fill="#8FC2FA">A/C comp.</text>
+          <text x="236" y="106" text-anchor="middle" fill="#7FD9AC">Steering</text>
+          <text x="559" y="300" text-anchor="middle" fill="#0E2A1C">Fuel system</text>
+          <text x="213" y="299" text-anchor="middle" fill="#0E2A1C">Electrical</text>
+          <text x="187" y="384" text-anchor="middle" fill="#7FD9AC">Brakes</text>
+          <text x="737" y="384" text-anchor="middle" fill="#7FD9AC">Brakes</text>
+          <text x="286" y="46" text-anchor="middle" fill="#7FD9AC">Suspension</text>
+        </g>
+      </svg>
+    </div>
+    <p class="dt-cap"><strong>Diagram is illustrative.</strong> Component coverage, limits, deductibles and exclusions are set by the vehicle service contract itself. Ask for the contract before you buy.</p>
+
+    <div class="tiers">
+      <div class="tier t1">
+        <h3>Tier 1 · Powertrain</h3>
+        <p class="t-note">The parts that cost the most to replace.</p>
+        <ul class="cov">
+          <li><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Engine, internally lubricated parts</li>
+          <li><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Transmission and torque converter</li>
+          <li><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Transfer case</li>
+          <li><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Drive axle and differential</li>
+          <li><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Seals and gaskets</li>
+          <li class="more"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Timing chain and cover</li>
+          <li class="more"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Oil pump and water pump</li>
+        </ul>
+        <button class="more-btn" type="button" data-more="">Show all coverage</button>
+      </div>
+
+      <div class="tier t2">
+        <h3>Tier 2 · Powertrain Plus</h3>
+        <p class="t-note">Everything in Tier 1, plus the following.</p>
+        <ul class="cov">
+          <li><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Air conditioning and heating</li>
+          <li><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Axle shafts and CV joints</li>
+          <li><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Cooling system and water pump</li>
+          <li><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Fuel delivery and fuel pump</li>
+          <li><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Alternator and starter</li>
+          <li class="more"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Power steering pump and rack</li>
+          <li class="more"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Turbocharger, where fitted</li>
+        </ul>
+        <button class="more-btn" type="button" data-more="">Show all coverage</button>
+      </div>
+
+      <div class="tier t3">
+        <h3>Tier 3 · Comprehensive</h3>
+        <p class="t-note">Everything above, plus the following.</p>
+        <ul class="cov">
+          <li><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Steering and suspension</li>
+          <li><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Brake system components</li>
+          <li><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Electrical and charging</li>
+          <li><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> High-tech and control modules</li>
+          <li><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Emissions components</li>
+          <li class="more"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Instrument cluster and sensors</li>
+          <li class="more"><svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7"></path></svg> Roadside assistance and towing</li>
+        </ul>
+        <button class="more-btn" type="button" data-more="">Show all coverage</button>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <a class="btn btn-call" href="tel:+18322054321" data-cta="warranty-call">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"></path></svg>
+        <span>Ask about coverage</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINANCING ================= -->
+<section class="sec-light">
+  <div class="wrap">
+    <span class="eyebrow">Getting it bought</span>
+    <h2>Financing Built for Business Buyers</h2>
+    <p class="lede" style="max-width:760px">A slow season, a couple of late pays, or a business too young for a bank to look at it. None of that automatically kills the deal here.</p>
+
+    <div class="fin-grid">
+      <div class="fin-card">
+        <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l4 4v16H6z"></path><path d="M14 2v4h4"></path><path d="M9 13h6M9 17h4"></path></svg>
+        <h3>No pay stubs required</h3>
+        <p>Self-employed buyers and sole proprietors do not always have traditional pay stubs. We can work from bank statements instead. [CONFIRM exact documents accepted.]</p>
+      </div>
+      <div class="fin-card">
+        <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V9l7-5 7 5v12"></path><path d="M9 21v-6h6v6"></path></svg>
+        <h3>Personal and business financing</h3>
+        <p>Finance in your own name or under your business. Ask about titling and financing under an EIN if you are building the vehicle into company assets.</p>
+      </div>
+      <div class="fin-card">
+        <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h11v8H4z"></path><path d="M15 9h3l3 3.5V15h-6z"></path><circle cx="8" cy="18" r="2"></circle><circle cx="18" cy="18" r="2"></circle></svg>
+        <h3>Adding more than one</h3>
+        <p>Growing the fleet? Tell us the count up front. Multiple units get handled as one deal with one point of contact, not four separate trips.</p>
+      </div>
+      <div class="fin-card">
+        <svg class="fi" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"></path><path d="M21 4v5h-5"></path></svg>
+        <h3>Trading in the old one</h3>
+        <p>Bring the vehicle you are replacing. We will appraise it while you look and roll the number into the deal.</p>
+      </div>
+    </div>
+
+    <div class="docs">
+      <h3>Bring these and we can work the deal same day</h3>
+      <ol>
+        <li>Driver license or state ID</li>
+        <li>Two recent pay stubs, or three months of business bank statements if you are self-employed</li>
+        <li>Proof of address, a utility bill works</li>
+        <li>Proof of insurance</li>
+        <li>Your down payment</li>
+      </ol>
+      <p class="muted" style="font-size:.87rem;margin:16px 0 0">Paid in cash and not sure what counts? Call first. We have worked those deals before and there is usually a way to document it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="value sec-white">
+  <div class="wrap">
+    <span class="eyebrow">Straight answers</span>
+    <h2>FAQ</h2>
+    <div class="faq">
+      <details>
+        <summary>Do I need a pay stub to get financed?</summary>
+        <div class="ans"><p>No, bank statements work fine. We understand not everyone gets a traditional paycheck, especially business owners and independent contractors, so we work with what you have.</p></div>
+      </details>
+      <details>
+        <summary>What credit score do I need to get approved?</summary>
+        <div class="ans"><p>It varies by lender, but decent credit puts you in a good position. We work with several banks, so even if one program doesn't fit, another might. Give us a call and we'll see what you qualify for.</p></div>
+      </details>
+      <details>
+        <summary>Can I get financed if I'm self-employed or a business owner?</summary>
+        <div class="ans"><p>Yes. We work with self-employed buyers regularly. Bank statements or business financials can be used in place of pay stubs, so bring what you have and we'll figure out the best path.</p></div>
+      </details>
+      <details>
+        <summary>Can I finance a cargo van under my LLC or business name?</summary>
+        <div class="ans"><p>Yes. Bring your business documentation and we'll walk you through titling and financing the van under your company name.</p></div>
+      </details>
+      <details>
+        <summary>Do you sell cargo vans in bulk for fleets?</summary>
+        <div class="ans"><p>Yes. If you need multiple vans for your business, we can work with our lending partners on fleet financing and help get all your vehicles on the road.</p></div>
+      </details>
+      <details>
+        <summary>What kind of cargo vans do you have in stock?</summary>
+        <div class="ans"><p>Our inventory rotates regularly with vans built for delivery, trade work, and mobile businesses. Check our current inventory or call us and we'll help match you to the right van.</p></div>
+      </details>
+      <details>
+        <summary>Are your cargo vans inspected before sale?</summary>
+        <div class="ans"><p>Yes, every van goes through a mechanical check before it's listed so you can drive off with confidence.</p></div>
+      </details>
+      <details>
+        <summary>Do you offer a warranty on cargo vans?</summary>
+        <div class="ans"><p>Yes, we offer coverage options. Ask us about the plans available for your specific van.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="final sec-dark">
+  <div class="wrap">
+    <div class="final-photo">
+      <picture>
+        <source type="image/webp" srcset="assets/img/footer-768.webp 768w, assets/img/footer-1280.webp 1280w, assets/img/footer-1920.webp 1920w" sizes="(max-width:900px) 100vw, 860px">
+        <img src="assets/img/footer-1280.jpg" width="1280" height="714" loading="lazy" decoding="async" alt="Customer collecting the keys to a cargo van at Pick &amp; Ride Auto Sales">
+      </picture>
+    </div>
+    <span class="eyebrow">Next step</span>
+    <h2>Call Now and Get Your Business Moving</h2>
+    <p class="lede" style="max-width:640px;margin-left:auto;margin-right:auto">One call, about two minutes. You will know what is on the lot, what it costs out the door, and whether financing works before you drive anywhere.</p>
+
+    <div class="btn-row">
+      <a class="btn btn-call" href="tel:+18322054321" data-cta="final-call">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"></path></svg>
+        <span>Call <span class="cr-phone">(832) 205-4321</span></span>
+      </a>
+    </div>
+    <p class="hours-note">Open Monday to Saturday, 9am to 5pm. Closed Sunday. Calling after hours? Leave your number and we will call you first thing.</p>
+
+    <form class="callback" id="cbForm" novalidate="">
+      <h3>Request a callback</h3>
+      <p class="muted" style="font-size:.9rem;margin-bottom:18px">For after-hours and Sundays.</p>
+      <div class="field">
+        <label for="cbName">Name</label>
+        <input id="cbName" name="name" type="text" autocomplete="name" required="">
+      </div>
+      <div class="field">
+        <label for="cbPhone">Mobile number</label>
+        <input id="cbPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required="">
+      </div>
+      <div class="field">
+        <label for="cbVan">What are you looking for?</label>
+        <select id="cbVan" name="van_interest">
+          <option value="">Select one</option>
+          <option>Mercedes-Benz Sprinter</option>
+          <option>Ford Transit</option>
+          <option>RAM ProMaster</option>
+          <option>Chevrolet Express</option>
+          <option>Pickup or box truck</option>
+          <option>Not sure yet, need advice</option>
+          <option>Multiple units for a fleet</option>
+        </select>
+      </div>
+      <!-- Honeypot: real people never see this, bots fill it. -->
+      <div class="hp-field" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+        <label for="cbCompanyUrl">Company website</label>
+        <input id="cbCompanyUrl" name="company_website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <!-- Populated at submit time from window.PNR_ATTR. -->
+      <input type="hidden" name="gclid" id="fGclid">
+      <input type="hidden" name="utm_source" id="fUtmSource">
+      <input type="hidden" name="utm_medium" id="fUtmMedium">
+      <input type="hidden" name="utm_campaign" id="fUtmCampaign">
+      <input type="hidden" name="campaignid" id="fCampaignId">
+      <input type="hidden" name="keyword" id="fKeyword">
+
+      <button class="btn btn-call" type="submit" data-cta="callback-submit" style="width:100%">Request my callback</button>
+      <p class="consent">By submitting you agree to be contacted by Pick &amp; Ride Auto Sales by phone or text about your inquiry. Message and data rates may apply. Consent is not a condition of purchase.</p>
+      <div class="form-ok" id="cbOk" role="status">Got it. We will call you at the number you gave us during business hours.</div>
+      <div class="form-err" id="cbErr" role="alert"></div>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div>
+      <h4>Pick &amp; Ride Auto Sales</h4>
+      <address>
+        5757 Addicks Satsuma Rd, Ste 11<br>
+        Houston, TX 77084<br>
+        <a href="tel:+18322054321" class="cr-phone" data-cta="footer-call">(832) 205-4321</a>
+      </address>
+    </div>
+    <div>
+      <h4>Hours</h4>
+      <address>
+        Monday to Friday: 9am to 5pm<br>
+        Saturday: 9am to 5pm<br>
+        Sunday: Closed
+      </address>
+    </div>
+    <div>
+      <h4>Serving</h4>
+      <address>
+        Houston, Katy, Cypress, Spring,<br>
+        Jersey Village, Tomball, and<br>
+        surrounding Harris County
+      </address>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="legal">
+      © <span id="yr">2026</span> Pick &amp; Ride Auto Sales LLC. All rights reserved.
+      Vehicle availability changes daily and listed vehicles are subject to prior sale.
+      Financing is subject to approval and not all applicants will qualify. Pricing excludes tax, title, license and dealer fees.
+      Vehicle service contracts are administered by a third-party provider. Coverage, limits and exclusions are governed by the contract.
+      Texas Dealer License (GDN) P168375.
+      <a href="/privacy-policy/">Privacy Policy</a> · <a href="/terms/">Terms</a>
+    </p>
+  </div>
+</footer>
+
+<!-- ================= STICKY MOBILE CALL BAR ================= -->
+<div class="call-bar">
+  <div class="cb-txt">
+    <b>Talk to someone on the lot</b>
+    <span>Mon to Sat, 9am to 5pm</span>
+  </div>
+  <a class="btn btn-call" href="tel:+18322054321" data-cta="sticky-call">
+    <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"></path></svg>
+    Call
+  </a>
+</div>
+
+<!-- ================= SCHEMA ================= -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"AutoDealer",
+  "name":"Pick & Ride Auto Sales",
+  "image":"https://www.picknrideauto.com/assets/og-commercial-vans.jpg",
+  "url":"https://www.picknrideauto.com/commercial-vans/",
+  "telephone":"+1-832-205-4321",
+  "priceRange":"$$",
+  "address":{
+    "@type":"PostalAddress",
+    "streetAddress":"5757 Addicks Satsuma Rd Ste 11",
+    "addressLocality":"Houston",
+    "addressRegion":"TX",
+    "postalCode":"77084",
+    "addressCountry":"US"
+  },
+  "openingHoursSpecification":[{
+    "@type":"OpeningHoursSpecification",
+    "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    "opens":"09:00","closes":"17:00"
+  }],
+  "areaServed":[
+    {"@type":"City","name":"Houston"},{"@type":"City","name":"Katy"},
+    {"@type":"City","name":"Cypress"},{"@type":"City","name":"Spring"}
+  ],
+  "makesOffer":[
+    {"@type":"Offer","itemOffered":{"@type":"Product","name":"Used Mercedes-Benz Sprinter cargo van"}},
+    {"@type":"Offer","itemOffered":{"@type":"Product","name":"Used Ford Transit cargo van"}},
+    {"@type":"Offer","itemOffered":{"@type":"Product","name":"Used RAM ProMaster cargo van"}},
+    {"@type":"Offer","itemOffered":{"@type":"Product","name":"Used Chevrolet Express cargo van"}}
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"Do I need a pay stub to get financed?","acceptedAnswer":{"@type":"Answer","text":"No, bank statements work fine. We understand not everyone gets a traditional paycheck, especially business owners and independent contractors, so we work with what you have."}},
+    {"@type":"Question","name":"What credit score do I need to get approved?","acceptedAnswer":{"@type":"Answer","text":"It varies by lender, but decent credit puts you in a good position. We work with several banks, so even if one program doesn't fit, another might. Give us a call and we'll see what you qualify for."}},
+    {"@type":"Question","name":"Can I get financed if I'm self-employed or a business owner?","acceptedAnswer":{"@type":"Answer","text":"Yes. We work with self-employed buyers regularly. Bank statements or business financials can be used in place of pay stubs, so bring what you have and we'll figure out the best path."}},
+    {"@type":"Question","name":"Can I finance a cargo van under my LLC or business name?","acceptedAnswer":{"@type":"Answer","text":"Yes. Bring your business documentation and we'll walk you through titling and financing the van under your company name."}},
+    {"@type":"Question","name":"Do you sell cargo vans in bulk for fleets?","acceptedAnswer":{"@type":"Answer","text":"Yes. If you need multiple vans for your business, we can work with our lending partners on fleet financing and help get all your vehicles on the road."}},
+    {"@type":"Question","name":"What kind of cargo vans do you have in stock?","acceptedAnswer":{"@type":"Answer","text":"Our inventory rotates regularly with vans built for delivery, trade work, and mobile businesses. Check our current inventory or call us and we'll help match you to the right van."}},
+    {"@type":"Question","name":"Are your cargo vans inspected before sale?","acceptedAnswer":{"@type":"Answer","text":"Yes, every van goes through a mechanical check before it's listed so you can drive off with confidence."}},
+    {"@type":"Question","name":"Do you offer a warranty on cargo vans?","acceptedAnswer":{"@type":"Answer","text":"Yes, we offer coverage options. Ask us about the plans available for your specific van."}}
+  ]
+}
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var dl = window.dataLayer = window.dataLayer || [];
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* ---------- Dynamic headline for Google Ads message match ----------
+     ?van=sprinter | transit | promaster | express | cargo | fleet | trucks  */
+  var MAP = {
+    sprinter:'Sprinter Vans', transit:'Ford Transit Vans', promaster:'ProMaster Vans',
+    express:'Chevy Express Vans', cargo:'Cargo Vans', fleet:'Fleet Vehicles', trucks:'Trucks'
+  };
+  try{
+    var key=(new URLSearchParams(location.search).get('van')||'').toLowerCase();
+    if(MAP[key]){
+      document.getElementById('kwSlot').textContent = MAP[key];
+      document.title = 'Commercial ' + MAP[key] + ' for Houston Business | Pick & Ride';
+    }
+  }catch(e){}
+
+  /* ---------- Call tracking: every tel: click ---------- */
+  document.querySelectorAll('a[href^="tel:"]').forEach(function(a){
+    a.addEventListener('click', function(){
+      dl.push({event:'phone_call_click', cta_location:a.getAttribute('data-cta')||'unknown', page_type:'commercial_vans_lp'});
+    });
+  });
+
+  /* ---------- Carousels ---------- */
+  document.querySelectorAll('.car-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var rail = document.getElementById(btn.getAttribute('data-rail'));
+      if(!rail) return;
+      var card = rail.firstElementChild;
+      var step = card ? card.getBoundingClientRect().width + 18 : rail.clientWidth * .8;
+      rail.scrollBy({left: step * parseInt(btn.getAttribute('data-dir'),10), behavior:'smooth'});
+    });
+  });
+  /* Disable arrows at the ends so they never look broken. */
+  document.querySelectorAll('.rail').forEach(function(rail){
+    function sync(){
+      /* On mobile the rail bleeds to the screen edge via padding, so a fully
+         scrolled-left rail rests at scrollLeft == paddingLeft, not 0. */
+      var pad = parseFloat(getComputedStyle(rail).paddingLeft) || 0;
+      var max = rail.scrollWidth - rail.clientWidth - 2;
+      document.querySelectorAll('.car-btn[data-rail="'+rail.id+'"]').forEach(function(b){
+        var dir = parseInt(b.getAttribute('data-dir'),10);
+        b.disabled = dir < 0 ? rail.scrollLeft <= pad + 4 : rail.scrollLeft >= max;
+      });
+    }
+    rail.addEventListener('scroll', sync, {passive:true});
+    window.addEventListener('resize', sync);
+    sync();
+  });
+
+  /* ---------- Review expand (4-line clamp) ---------- */
+  function syncReviewToggles(){
+    document.querySelectorAll('.t-card').forEach(function(card){
+      var q = card.querySelector('blockquote'), b = card.querySelector('.rev-more');
+      if(!q || !b) return;
+      if(card.classList.contains('open')) return;
+      b.style.display = q.scrollHeight - q.clientHeight > 4 ? 'block' : 'none';
+    });
+  }
+  document.querySelectorAll('.rev-more').forEach(function(b){
+    b.addEventListener('click', function(){
+      var card = b.closest('.t-card');
+      var open = card.classList.toggle('open');
+      b.textContent = open ? 'Show less' : 'Read more';
+    });
+  });
+  syncReviewToggles();
+  window.addEventListener('resize', syncReviewToggles);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(syncReviewToggles);
+
+  /* ---------- Warranty tier expand ---------- */
+  document.querySelectorAll('[data-more]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var tier = btn.closest('.tier');
+      var open = tier.classList.toggle('open');
+      btn.textContent = open ? 'Show less' : 'Show all coverage';
+      dl.push({event:'warranty_tier_expand', tier:tier.querySelector('h3').textContent.trim(), expanded:open});
+    });
+  });
+
+  /* ---------- Scroll depth ---------- */
+  var hit={};
+  window.addEventListener('scroll', function(){
+    var d=document.documentElement;
+    var pct=d.scrollTop/(d.scrollHeight-d.clientHeight)*100;
+    [25,50,75,90].forEach(function(m){ if(pct>=m && !hit[m]){hit[m]=1;dl.push({event:'scroll_depth',percent:m});} });
+  }, {passive:true});
+
+  /* ---------- Callback form -> CRM ---------- */
+  var f    = document.getElementById('cbForm');
+  var btn  = f.querySelector('button[type="submit"]');
+  var okEl = document.getElementById('cbOk');
+  var erEl = document.getElementById('cbErr');
+  var CALL_BACK = 'Sorry \u2014 that did not send. Please call us at (832) 205-4321 and we will take care of you.';
+  var loadedAt = Date.now();
+
+  function gaClientId(){
+    var m = document.cookie.match(/_ga=GA\d\.\d\.(\d+\.\d+)/);
+    return m ? m[1] : '';
+  }
+  function fail(msg){
+    erEl.textContent = msg || CALL_BACK;
+    erEl.style.display = 'block';
+    btn.removeAttribute('aria-busy');
+    btn.textContent = 'Request my callback';
+  }
+
+  f.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    erEl.style.display = 'none';
+
+    var nameEl  = document.getElementById('cbName');
+    var phoneEl = document.getElementById('cbPhone');
+    var vanEl   = document.getElementById('cbVan');
+    var name    = nameEl.value.trim();
+    var phone   = phoneEl.value.trim();
+    var digits  = phone.replace(/\D/g, '');
+
+    if(!name){ fail('Please add your name so we know who to ask for.'); nameEl.focus(); return; }
+    if(digits.length < 10){ fail('Please add a 10 digit mobile number so we can call you back.'); phoneEl.focus(); return; }
+    /* honeypot + submit-speed check: silently accept, never deliver */
+    var hp = (f.company_website && f.company_website.value) || '';
+    if(hp || (Date.now() - loadedAt) < 2000){
+      f.querySelectorAll('.field, button, .consent').forEach(function(el){ el.style.display='none'; });
+      okEl.style.display = 'block';
+      return;
+    }
+
+    var attr = window.PNR_ATTR || {};
+    /* mirror the headline params into the hidden inputs */
+    ['Gclid:gclid','UtmSource:utm_source','UtmMedium:utm_medium',
+     'UtmCampaign:utm_campaign','CampaignId:campaignid','Keyword:keyword'].forEach(function(pair){
+      var p = pair.split(':'), el = document.getElementById('f'+p[0]);
+      if(el) el.value = attr[p[1]] || '';
+    });
+
+    var payload = {
+      form_name:    'fleet_callback',
+      page_type:    'commercial_vans_lp',
+      name:         name,
+      phone:        digits,
+      phone_raw:    phone,
+      van_interest: vanEl.value || 'Not specified',
+      consent:      true,
+      page_url:     location.href,
+      referrer:     attr.referrer || document.referrer || '(direct)',
+      user_agent:   navigator.userAgent,
+      submitted_at: new Date().toISOString(),
+      ga_client_id: gaClientId(),
+      attribution:  attr
+    };
+
+    var endpoint = (window.PNR && window.PNR.leadEndpoint) || '';
+    if(!endpoint){
+      /* Never fake a success \u2014 an unrouted lead is a lost customer. */
+      console.error('[PNR] window.PNR.leadEndpoint is not configured; lead was NOT delivered.', payload);
+      fail(CALL_BACK);
+      return;
+    }
+
+    btn.setAttribute('aria-busy','true');
+    btn.textContent = 'Sending\u2026';
+
+    fetch(endpoint, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    }).then(function(r){
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.json().catch(function(){ return {}; });
+    }).then(function(){
+      dl.push({
+        event:'generate_lead',
+        lead_type:'callback_form',
+        van_interest: payload.van_interest,
+        page_type:'commercial_vans_lp',
+        gclid: attr.gclid || ''
+      });
+      f.querySelectorAll('.field, button, .consent, .hp-field').forEach(function(el){ el.style.display='none'; });
+      okEl.style.display = 'block';
+      okEl.focus && okEl.focus();
+    }).catch(function(err){
+      console.error('[PNR] lead delivery failed:', err);
+      dl.push({event:'lead_submit_error', page_type:'commercial_vans_lp'});
+      fail(CALL_BACK);
+    });
+  });
+})();
+</script>
+
+
+
+
+</body></html>

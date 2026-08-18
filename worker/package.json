@@ -1,0 +1,16 @@
+{
+  "name": "pnr-lead-relay",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Posts Pick & Ride landing page submissions to the DealerCenter Prospect API.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail",
+    "test": "node test/prospect.test.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  },
+  "type": "module"
+}
