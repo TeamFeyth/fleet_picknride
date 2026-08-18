@@ -196,8 +196,65 @@ async function postToDealerCenter(payload, env) {
   return last;
 }
 
+
+/**
+ * Backup copy of every validated lead, appended to a Google Sheet.
+ *
+ * Why this exists: DealerCenter is the system of record, but it is a single
+ * point of failure. If the token expires, the endpoint changes, or their API
+ * has a bad afternoon, the Worker answers 502 and tells the visitor to call.
+ * That protects the visitor but the lead itself is gone - nobody can follow
+ * up on a submission nobody kept. This writes a row either way, so the sales
+ * floor always has a list to work from.
+ *
+ * SHEETS_WEBHOOK_URL points at a Google Apps Script Web App that does the
+ * actual appendRow. Empty = feature off, and the Worker behaves exactly as
+ * before. SHEETS_SHARED_SECRET is echoed back to the script so a stranger who
+ * guesses the URL cannot inject rows.
+ */
+async function logToSheet(lead, dcResult, env) {
+  const url = env.SHEETS_WEBHOOK_URL;
+  if (!url) return { ok: false, reason: 'not_configured' };
+
+  const row = {
+    secret: env.SHEETS_SHARED_SECRET || '',
+    submitted_at: lead.submitted_at,
+    name: lead.name,
+    phone: lead.phone,
+    email: lead.email,
+    van_interest: lead.van_interest,
+    preferred_language: lead.preferred_language,
+    message: lead.message,
+    source: lead.source,
+    form_name: lead.form_name,
+    page_url: lead.page_url,
+    ga_client_id: lead.ga_client_id,
+    attribution: JSON.stringify(lead.attribution || {}),
+    // So a human scanning the sheet can tell which rows DealerCenter missed.
+    dealercenter_status: dcResult.ok ? 'delivered' : (dcResult.reason || 'failed'),
+    dealercenter_prospect_id: dcResult.prospectId || '',
+  };
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(row),
+      signal: AbortSignal.timeout(6000),
+    });
+    if (!res.ok) {
+      console.error('Sheet backup rejected', res.status);
+      return { ok: false, reason: 'sheet_error', status: res.status };
+    }
+    return { ok: true };
+  } catch (err) {
+    console.error('Sheet backup failed', String(err && err.message));
+    return { ok: false, reason: 'network_error' };
+  }
+}
+
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const cors = corsHeaders(request, env);
 
@@ -206,6 +263,7 @@ export default {
       return json({
         ok: true,
         configured: Boolean(env.DEALERCENTER_ACCESS_TOKEN && env.DEALERCENTER_DEALER_ID && env.DEALERCENTER_ENDPOINT),
+        sheets_backup: Boolean(env.SHEETS_WEBHOOK_URL),
       }, 200, cors);
     }
     if (url.pathname !== '/lead') return json({ ok: false, error: 'not_found' }, 404, cors);
@@ -248,10 +306,20 @@ export default {
 
     if (!result.ok) {
       console.error('DealerCenter submit failed', result.reason, result.detail || '', result.status);
+      // DealerCenter is the one that dropped it, so the backup is the only
+      // copy of this lead. Wait for the write instead of firing and forgetting,
+      // and report whether it landed. Costs latency only on the failure path.
+      const backup = await logToSheet(normalized, result, env);
       // 503 when we were never wired up, 502 when DealerCenter refused it.
       const status = result.reason === 'not_configured' ? 503 : 502;
-      return json({ ok: false, error: result.reason }, status, cors);
+      return json({ ok: false, error: result.reason, backed_up: backup.ok }, status, cors);
     }
+
+    // Happy path: the lead is already safe in DealerCenter, so the sheet row
+    // is bookkeeping. Hand it to waitUntil so the visitor is not kept waiting.
+    const backup = logToSheet(normalized, result, env);
+    if (ctx && typeof ctx.waitUntil === 'function') ctx.waitUntil(backup);
+    else await backup;
 
     return json({ ok: true, prospect_id: result.prospectId || null }, 200, cors);
   },

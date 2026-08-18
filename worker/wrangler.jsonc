@@ -10,16 +10,22 @@
   //   npx wrangler secret put DEALERCENTER_ACCESS_TOKEN
   // Request it from support@dealercenter.com with the landing page URL.
   "vars": {
-    // STEP 1 (current) - integration environment. It REQUIRES the literal dealer
-    // id "NOWCOM"; sending the real Company ID here fails with "Invalid Dealer ID".
-    "DEALERCENTER_ENDPOINT": "https://app-int0.dealercenter.net/api-gateway/crm-externalintegration/LeadManagement/post-xml",
-    "DEALERCENTER_DEALER_ID": "NOWCOM",
+    // PRODUCTION. Validated against the integration environment first, then
+    // switched over on 2026-08-18 once DealerCenter confirmed the test lead.
+    "DEALERCENTER_ENDPOINT": "https://app.dealercenter.net/api-gateway/crm-externalintegration/LeadManagement/post-xml",
+    "DEALERCENTER_DEALER_ID": "22065582",
 
-    // STEP 2 - production. Swap the two lines above for these two ONLY after
-    // DealerCenter confirms they received and accepted the integration test lead.
-    // Pick & Ride Company ID, supplied by the client 2026-08-18:
-    // "DEALERCENTER_ENDPOINT": "https://app.dealercenter.net/api-gateway/crm-externalintegration/LeadManagement/post-xml",
-    // "DEALERCENTER_DEALER_ID": "22065582",
+    // To re-test against integration, swap the two lines above for these. The
+    // integration environment REQUIRES the literal dealer id "NOWCOM"; sending
+    // the real Company ID there fails with "Invalid Dealer ID".
+    // "DEALERCENTER_ENDPOINT": "https://app-int0.dealercenter.net/api-gateway/crm-externalintegration/LeadManagement/post-xml",
+    // "DEALERCENTER_DEALER_ID": "NOWCOM",
+
+    // Google Sheets backup. Empty = off, and the Worker behaves exactly as it
+    // did before. Set with:  wrangler secret put SHEETS_WEBHOOK_URL
+    // The shared secret is echoed to the Apps Script so a stranger who guesses
+    // the URL cannot append rows:  wrangler secret put SHEETS_SHARED_SECRET
+    // "SHEETS_WEBHOOK_URL": "",
 
     "LEAD_SOURCE": "Feyth Marketing - Landing Page",
 

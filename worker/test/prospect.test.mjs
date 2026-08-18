@@ -183,5 +183,82 @@ res = await worker.fetch(new Request('https://w.dev/health'), unconfigured);
 body = await res.json();
 check('/health reports configured:false when token missing', body.configured === false);
 
+// ------------------------------------------------- google sheets backup
+console.log('\n--- google sheets backup ---');
+
+const SHEET = 'https://script.google.com/macros/s/AAAA/exec';
+const sheetEnv = () => ({ ...baseEnv(), SHEETS_WEBHOOK_URL: SHEET, SHEETS_SHARED_SECRET: 's3cr3t' });
+// waitUntil is provided by the runtime; the tests supply one that lets us await.
+const makeCtx = () => { const jobs = []; return { waitUntil: (p) => jobs.push(p), jobs }; };
+const sheetCalls = () => calls.filter((c) => c.url === SHEET);
+const dcCalls = () => calls.filter((c) => c.url === ENDPOINT);
+
+// happy path: row written, and it does not disturb the DealerCenter call
+mockFetch((n) => (calls[n - 1].url === SHEET ? new Response('', { status: 200 }) : okGuid()));
+let ctx = makeCtx();
+res = await worker.fetch(post(GOOD), sheetEnv(), ctx);
+await Promise.all(ctx.jobs);
+check('lead delivered -> row still written', res.status === 200 && sheetCalls().length === 1);
+check('backup does not replace the DealerCenter call', dcCalls().length === 1);
+let row = JSON.parse(sheetCalls()[0].body);
+check('row carries the shared secret', row.secret === 's3cr3t');
+check('row marks the lead as delivered', row.dealercenter_status === 'delivered');
+check('row keeps the prospect id', row.dealercenter_prospect_id.length > 10);
+check('row keeps attribution as JSON', JSON.parse(row.attribution).gclid === 'TESTGCLID123');
+check('row keeps the normalised phone', row.phone === '8325550142');
+
+// the case this feature exists for: DealerCenter refuses, sheet still gets it
+mockFetch((n) => (calls[n - 1].url === SHEET
+  ? new Response('', { status: 200 })
+  : dcError('Invalid Dealer ID.')));
+res = await worker.fetch(post(GOOD), sheetEnv(), makeCtx());
+body = await res.json();
+check('DealerCenter refused -> 502 still', res.status === 502);
+check('DealerCenter refused -> lead is backed up', sheetCalls().length === 1);
+check('response reports backed_up:true', body.backed_up === true);
+row = JSON.parse(sheetCalls()[0].body);
+check('row records the failure reason', row.dealercenter_status === 'dealercenter_error');
+
+// unconfigured DealerCenter: the sheet is the only copy
+mockFetch(() => new Response('', { status: 200 }));
+res = await worker.fetch(post(GOOD), { ...unconfigured, SHEETS_WEBHOOK_URL: SHEET }, makeCtx());
+body = await res.json();
+check('no token -> 503 and still backed up', res.status === 503 && body.backed_up === true);
+
+// a broken sheet must never turn a good lead into a failure
+mockFetch((n) => (calls[n - 1].url === SHEET ? new Response('nope', { status: 500 }) : okGuid()));
+ctx = makeCtx();
+res = await worker.fetch(post(GOOD), sheetEnv(), ctx);
+await Promise.all(ctx.jobs);
+check('sheet down -> lead still reported ok', res.status === 200);
+
+mockFetch((n) => { if (calls[n - 1].url === SHEET) throw new Error('dns'); return okGuid(); });
+ctx = makeCtx();
+res = await worker.fetch(post(GOOD), sheetEnv(), ctx);
+await Promise.all(ctx.jobs);
+check('sheet unreachable -> lead still reported ok', res.status === 200);
+
+// feature off by default
+mockFetch(() => okGuid());
+res = await worker.fetch(post(GOOD), baseEnv(), makeCtx());
+check('no webhook configured -> nothing extra sent', res.status === 200 && calls.length === 1);
+
+// bots never reach the sheet
+mockFetch(() => okGuid());
+await worker.fetch(post({ ...GOOD, company_website: 'http://spam.ru' }), sheetEnv(), makeCtx());
+check('honeypot hit -> no row written', sheetCalls().length === 0);
+
+// invalid leads never reach the sheet either
+mockFetch(() => okGuid());
+await worker.fetch(post({ ...GOOD, phone: '555' }), sheetEnv(), makeCtx());
+check('invalid phone -> no row written', sheetCalls().length === 0);
+
+res = await worker.fetch(new Request('https://w.dev/health'), sheetEnv());
+body = await res.json();
+check('/health reports sheets_backup:true', body.sheets_backup === true);
+res = await worker.fetch(new Request('https://w.dev/health'), baseEnv());
+body = await res.json();
+check('/health reports sheets_backup:false when off', body.sheets_backup === false);
+
 console.log('\n' + pass + ' passed, ' + fail + ' failed\n');
 process.exit(fail ? 1 : 0);
