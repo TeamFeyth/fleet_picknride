@@ -11,7 +11,7 @@ window.PNR = {
   /* Cloudflare Worker that turns a submission into an ADF lead. */
   leadEndpoint: 'https://pnr-lead-relay.cold-smoke-4aef.workers.dev/lead',
   /* Google Tag Manager container id. Empty = GTM stays off. */
-  gtmId: '',
+  gtmId: 'GTM-5ZKFQV77',
   /* CallRail swap script. Empty = dynamic number swap stays off. */
   callRailSrc: '//cdn.callrail.com/companies/929436290/ee5c10fe11aff979d2f0/12/swap.js'
 };
@@ -64,14 +64,14 @@ document.head.appendChild(t);})();</script>
 
 <title>Commercial Vans &amp; Trucks for Houston Business | Pick &amp; Ride</title>
 <meta name="description" content="Commercial vans and trucks ready for business in Houston. 150-point inspection, warranty options, personal and business financing. Call (832) 205-4321.">
-<link rel="canonical" href="https://www.picknrideauto.com/commercial-vans/">
+<link rel="canonical" href="https://fleet.picknrideauto.com/">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0B0D0F">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Commercial Vans &amp; Trucks Ready for Business | Pick &amp; Ride Auto Sales">
 <meta property="og:description" content="Reliable fleet vehicles for Houston businesses. On the lot or special ordered.">
-<meta property="og:url" content="https://www.picknrideauto.com/commercial-vans/">
+<meta property="og:url" content="https://fleet.picknrideauto.com/">
 <meta property="og:image" content="https://www.picknrideauto.com/assets/img/og-commercial-vans.jpg">
 <meta property="og:image:width" content="1280">
 <meta property="og:image:height" content="714">
@@ -558,6 +558,18 @@ details .ans p:last-child{margin-bottom:0}
 .legal{border-top:1px solid var(--line-d);margin-top:34px;padding-top:20px;color:#7E878F;font-size:.79rem;line-height:1.6}
 .legal a{color:#7E878F}
 
+/* ---------------- EN/ES language toggle ---------------- */
+.pnr-lang{display:inline-flex;align-items:center;gap:7px;font-family:var(--font-h);
+  font-weight:700;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;
+  padding:8px 13px;border-radius:3px;cursor:pointer;background:transparent;
+  border:1px solid currentColor;color:inherit;line-height:1;white-space:nowrap}
+.pnr-lang svg{width:15px;height:15px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7}
+.pnr-lang:hover{background:var(--red);border-color:var(--red);color:var(--white)}
+.pnr-lang:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.site-head .pnr-lang{color:var(--text)}
+.site-foot .pnr-lang{color:#BFC6CE;margin-top:14px}
+.site-foot .pnr-lang:hover{color:var(--white);text-decoration:none}
+
 /* ---------------- Sticky mobile call bar ---------------- */
 .call-bar{position:fixed;left:0;right:0;bottom:0;z-index:80;display:flex;gap:10px;align-items:center;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:rgba(11,13,15,.97);border-top:1px solid var(--line-d);backdrop-filter:blur(8px);color:var(--text-d)}
 .call-bar .cb-txt{flex:1;min-width:0}
@@ -572,7 +584,10 @@ details .ans p:last-child{margin-bottom:0}
 </head>
 <body>
 
-<!-- GTM noscript: restore once a real container id is configured. -->
+<!-- Google Tag Manager (noscript) — must be the first thing inside <body>. -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5ZKFQV77"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <a class="skip" href="#main">Skip to content</a>
 
@@ -583,6 +598,7 @@ details .ans p:last-child{margin-bottom:0}
       <img class="brand-mark" src="assets/img/logo-160.webp" width="160" height="148" alt="Pick &amp; Ride Auto Sales" decoding="async">
       <span class="brand-name">Pick &amp; Ride <span>Auto Sales</span></span>
     </a>
+    <button type="button" class="pnr-lang" data-lang-toggle data-to="es" data-i18n-skip aria-label="Ver esta página en español"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg><span data-lang-label>Español</span></button>
     <a class="head-call" href="tel:+18322054321" data-cta="header-call">
       <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"></path></svg>
       <span class="cr-phone">(832) 205-4321</span>
@@ -1134,13 +1150,13 @@ details .ans p:last-child{margin-bottom:0}
         <label for="cbVan">What are you looking for?</label>
         <select id="cbVan" name="van_interest">
           <option value="">Select one</option>
-          <option>Mercedes-Benz Sprinter</option>
-          <option>Ford Transit</option>
-          <option>RAM ProMaster</option>
-          <option>Chevrolet Express</option>
-          <option>Pickup or box truck</option>
-          <option>Not sure yet, need advice</option>
-          <option>Multiple units for a fleet</option>
+          <option value="Mercedes-Benz Sprinter">Mercedes-Benz Sprinter</option>
+          <option value="Ford Transit">Ford Transit</option>
+          <option value="RAM ProMaster">RAM ProMaster</option>
+          <option value="Chevrolet Express">Chevrolet Express</option>
+          <option value="Pickup or box truck">Pickup or box truck</option>
+          <option value="Not sure yet, need advice">Not sure yet, need advice</option>
+          <option value="Multiple units for a fleet">Multiple units for a fleet</option>
         </select>
       </div>
       <!-- Honeypot: real people never see this, bots fill it. -->
@@ -1160,7 +1176,7 @@ details .ans p:last-child{margin-bottom:0}
       <button class="btn btn-call" type="submit" data-cta="callback-submit" style="width:100%">Request my callback</button>
       <p class="consent">By submitting you agree to be contacted by Pick &amp; Ride Auto Sales by phone or text about your inquiry. Message and data rates may apply. Consent is not a condition of purchase.</p>
       <div class="form-ok" id="cbOk" role="status">Got it. We will call you at the number you gave us during business hours.</div>
-      <div class="form-err" id="cbErr" role="alert"></div>
+      <div class="form-err" id="cbErr" data-i18n-skip role="alert"></div>
     </form>
   </div>
 </section>
@@ -1203,6 +1219,8 @@ details .ans p:last-child{margin-bottom:0}
       Vehicle service contracts are administered by a third-party provider. Coverage, limits and exclusions are governed by the contract.
       Texas Dealer License (GDN) P168375.
       <a href="/privacy-policy/">Privacy Policy</a> · <a href="/terms/">Terms</a>
+      <br>
+      <button type="button" class="pnr-lang" data-lang-toggle data-to="es" data-i18n-skip aria-label="Ver esta página en español"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg><span data-lang-label>Español</span></button>
     </p>
   </div>
 </footer>
@@ -1272,10 +1290,412 @@ details .ans p:last-child{margin-bottom:0}
 }
 </script>
 
+<!-- ============================================================
+     BILINGUAL TOGGLE (EN <-> ES)
+     English is the default. Spanish is opt-in and remembered in
+     localStorage under "pnr_lang".
+
+     Switching walks every text node and swaps any string present in
+     DICT, keeping the English original in a lookaside so switching
+     back is exact rather than a re-translation. Strings absent from
+     DICT are untouched: phone numbers, the address, vehicle model
+     names, and signed customer reviews.
+
+     CAREFUL: `Pick &amp; Ride` is THREE fragments in the source but
+     ONE text node in the DOM. Keys must be whole DOM strings. Run
+     tests/test_i18n_coverage.py after editing copy - it walks the
+     real DOM and fails on anything left untranslated.
+     ============================================================ -->
+<script>
+(function () {
+  'use strict';
+
+  var DICT = {
+    /* skip link + hero */
+    'Skip to content': 'Ir al contenido',
+    'Commercial': 'Vans y camiones',
+    'Vans and Trucks': 'comerciales',
+    'Ready for Business': 'listos para trabajar',
+    'Reliable fleet vehicles for Houston businesses. We keep options on the lot and can special order the exact spec you need.':
+      'Vehículos de flotilla confiables para negocios en Houston. Tenemos opciones en el lote y podemos pedir por encargo la especificación exacta que necesitas.',
+    'Call': 'Llamar',
+    'View inventory': 'Ver inventario',
+    '150-point inspection on every vehicle': 'Inspección de 150 puntos en cada vehículo',
+    'Customer rating': 'Calificación de clientes',
+    'No Pay Stubs Needed': 'Sin talones de pago',
+    'We can work from bank statements': 'Trabajamos con estados de cuenta',
+    'Personal & Business Financing': 'Financiamiento personal y comercial',
+    'Both available': 'Ambos disponibles',
+    'Delivery Available': 'Entrega disponible',
+    'We can transport to you': 'Podemos llevarlo hasta ti',
+
+    /* built for business */
+    'Built for business': 'Hecho para el negocio',
+    'Grow Your Fleet to Grow Your Business': 'Haz crecer tu flotilla para hacer crecer tu negocio',
+    'We work with business owners and entrepreneurs across a lot of different trades, so we understand what our customers need from a work vehicle. Every unit goes through a 150-point inspection before it is delivered, so your fleet spends its time on jobs instead of in the shop.':
+      'Trabajamos con dueños de negocio y emprendedores de muchos oficios distintos, así que entendemos qué necesita nuestro cliente de un vehículo de trabajo. Cada unidad pasa una inspección de 150 puntos antes de entregarse, para que tu flotilla pase el tiempo en los trabajos y no en el taller.',
+    'Warranty available': 'Garantía disponible',
+    'Coverage can be added to most vehicles, from powertrain protection on the engine, transmission and drive axle up to full bumper-to-bumper plans. Ask what is available on the unit you are looking at.':
+      'Se puede agregar cobertura a la mayoría de los vehículos, desde protección de tren motriz en motor, transmisión y eje de tracción hasta planos completos de parachoques a parachoques. Pregunta qué hay disponible en la unidad que estás viendo.',
+    'Large fleet inventory': 'Inventario amplio para flotillas',
+    'Diesel and gas trucks and cargo vans, and we can handle large orders. Place an order for what you need and we will source it at the best price we can get without dropping our quality standards.':
+      'Camiones y vans de carga a diésel y gasolina, y podemos manejar pedidos grandes. Haz tu pedido y lo conseguimos al mejor precio posible sin bajar nuestros estándares de calidad.',
+    'Service already done': 'Servicio ya hecho',
+    "Routine service and preliminary repairs are completed to the manufacturer's recommendations for that vehicle's mileage, so you are not inheriting somebody else's deferred maintenance.":
+      'El servicio de rutina y las reparaciones preliminares se completan según las recomendaciones del fabricante para el kilometraje de ese vehículo, así no heredas el mantenimiento que otro dejó pendiente.',
+
+    /* inventory */
+    'Current inventory': 'Inventario actual',
+    'Find the Right Vehicle': 'Encuentra el vehículo correcto',
+    'High Roof · 144" Wheelbase': 'Techo alto · Distancia entre ejes 144"',
+    'Medium Roof · 148" Wheelbase': 'Techo medio · Distancia entre ejes 148"',
+    'High Roof · 159" Wheelbase': 'Techo alto · Distancia entre ejes 159"',
+    'Cargo · 135" Wheelbase': 'Carga · Distancia entre ejes 135"',
+    'Call to book a test drive': 'Llama para agendar una prueba de manejo',
+    'Inventory changes weekly. Call for what is on the ground today, or to place a special order.':
+      'El inventario cambia cada semana. Llama para saber qué hay hoy en el lote, o para hacer un pedido especial.',
+
+    /* reviews — the quotes themselves stay in the language the customer
+       wrote them in; translating a signed review would put words in a
+       real person's mouth. */
+    'Customer reviews': 'Reseñas de clientes',
+    'Rated 4.9 by Houston Business Owners': 'Calificados 4.9 por dueños de negocio en Houston',
+    'Read more': 'Leer más',
+    'Google review': 'Reseña de Google',
+
+    /* process */
+    'The process': 'El proceso',
+    'As Easy as 1, 2, 3': 'Tan fácil como 1, 2, 3',
+    'Your fleet': 'Tu flotilla',
+    'Choose the vehicle that fits your business needs. Tell us the trade and what you carry and we will point you at the units that work, on the lot or by special order.':
+      'Elige el vehículo que le sirve a tu negocio. Cuéntanos tu oficio y qué transportas y te señalamos las unidades que funcionan, en el lote o por pedido especial.',
+    'Easy same-day financing': 'Financiamiento fácil el mismo día',
+    'We work with self-employed buyers and with customers financing under an EIN or a business name. Bring your paperwork and we can usually get you an answer the same day.':
+      'Trabajamos con compradores por cuenta propia y con clientes que financian bajo un EIN o el nombre de su negocio. Trae tus documentos y normalmente te damos respuesta el mismo día.',
+    'Drive with confidence': 'Maneja con confianza',
+    'Your vehicle leaves inspected, serviced and ready for work on day one. Start the job, start billing, and put the truck to work instead of waiting on a shop.':
+      'Tu vehículo sale inspeccionado, con servicio y listo para trabajar desde el primer día. Empieza el trabajo, empieza a facturar, y pon el camión a trabajar en vez de esperar en un taller.',
+
+    /* warranty */
+    'Warranty coverage': 'Cobertura de garantía',
+    'Buy With Confidence': 'Compra con confianza',
+    'Coverage is built around the drivetrain, the parts that cost the most to fix. Each tier adds to the one before it, so you are picking how far out from the engine you want protection to reach.':
+      'La cobertura se construye alrededor del tren motriz, las piezas más caras de reparar. Cada nivel se suma al anterior, así que estás eligiendo qué tan lejos del motor quieres que llegue la protección.',
+    'Tier 1 · Powertrain': 'Nivel 1 · Tren motriz',
+    'Tier 2 · Powertrain Plus': 'Nivel 2 · Tren motriz plus',
+    'Tier 3 · Comprehensive': 'Nivel 3 · Integral',
+    'Drivetrain diagram showing warranty coverage by tier':
+      'Diagrama del tren motriz que muestra la cobertura de garantía por nivel',
+    'Top-down view of a rear-wheel-drive commercial van drivetrain. Engine, transmission, transfer case, driveshaft and differential are Tier 1 powertrain coverage. Axle shafts, water pump and air conditioning compressor are Tier 2. Steering, suspension, brakes, fuel system and electrical are Tier 3.':
+      'Vista superior del tren motriz de una van comercial de tracción trasera. Motor, transmisión, caja de transferencia, flecha cardán y diferencial son cobertura de tren motriz Nivel 1. Semiejes, bomba de agua y compresor de aire acondicionado son Nivel 2. Dirección, suspensión, frenos, sistema de combustible y sistema eléctrico son Nivel 3.',
+    'FRONT': 'DELANTERO',
+    'REAR': 'TRASERO',
+    'ENGINE': 'MOTOR',
+    'Transmission': 'Transmisión',
+    'Transfer case': 'Caja de transferencia',
+    'Driveshaft': 'Flecha cardán',
+    'Diff.': 'Dif.',
+    'Axle shaft': 'Semieje',
+    'Water pump': 'Bomba de agua',
+    'A/C comp.': 'Compresor A/C',
+    'Steering': 'Dirección',
+    'Fuel system': 'Sist. combustible',
+    'Electrical': 'Sist. eléctrico',
+    'Brakes': 'Frenos',
+    'Suspension': 'Suspensión',
+    'Diagram is illustrative.': 'El diagrama es ilustrativo.',
+    'Component coverage, limits, deductibles and exclusions are set by the vehicle service contract itself. Ask for the contract before you buy.':
+      'La cobertura de componentes, los límites, los deducibles y las exclusiones los define el contrato de servicio del vehículo. Pide el contrato antes de comprar.',
+    'The parts that cost the most to replace.': 'Las piezas más caras de reemplazar.',
+    'Engine, internally lubricated parts': 'Motor, piezas lubricadas internamente',
+    'Transmission and torque converter': 'Transmisión y convertidor de par',
+    'Drive axle and differential': 'Eje de tracción y diferencial',
+    'Seals and gaskets': 'Sellos y empaques',
+    'Timing chain and cover': 'Cadena de distribución y tapa',
+    'Oil pump and water pump': 'Bomba de aceite y bomba de agua',
+    'Show all coverage': 'Ver toda la cobertura',
+    'Everything in Tier 1, plus the following.': 'Todo lo del Nivel 1, más lo siguiente.',
+    'Air conditioning and heating': 'Aire acondicionado y calefacción',
+    'Axle shafts and CV joints': 'Semiejes y juntas homocinéticas',
+    'Cooling system and water pump': 'Sistema de enfriamiento y bomba de agua',
+    'Fuel delivery and fuel pump': 'Suministro y bomba de combustible',
+    'Alternator and starter': 'Alternador y marcha',
+    'Power steering pump and rack': 'Bomba y cremallera de dirección hidráulica',
+    'Turbocharger, where fitted': 'Turbocargador, donde esté instalado',
+    'Everything above, plus the following.': 'Todo lo anterior, más lo siguiente.',
+    'Steering and suspension': 'Dirección y suspensión',
+    'Brake system components': 'Componentes del sistema de frenos',
+    'Electrical and charging': 'Sistema eléctrico y de carga',
+    'High-tech and control modules': 'Módulos electrónicos y de control',
+    'Emissions components': 'Componentes de emisiones',
+    'Instrument cluster and sensors': 'Tablero de instrumentos y sensores',
+    'Roadside assistance and towing': 'Asistencia vial y grúa',
+    'Ask about coverage': 'Pregunta por la cobertura',
+
+    /* financing */
+    'Getting it bought': 'Cerrar la compra',
+    'Financing Built for Business Buyers': 'Financiamiento hecho para compradores de negocio',
+    'A slow season, a couple of late pays, or a business too young for a bank to look at it. None of that automatically kills the deal here.':
+      'Una temporada baja, un par de pagos atrasados, o un negocio demasiado nuevo para que un banco lo mire. Nada de eso mata el trato automáticamente aquí.',
+    'No pay stubs required': 'No se requieren talones de pago',
+    'Personal and business financing': 'Financiamiento personal y comercial',
+    'Finance in your own name or under your business. Ask about titling and financing under an EIN if you are building the vehicle into company assets.':
+      'Financia a tu nombre o bajo tu negocio. Pregunta por el título y el financiamiento bajo un EIN si vas a registrar el vehículo como activo de la empresa.',
+    'Adding more than one': 'Agregar más de una unidad',
+    'Growing the fleet? Tell us the count up front. Multiple units get handled as one deal with one point of contact, not four separate trips.':
+      '¿Vas a crecer la flotilla? Dinos cuántas unidades desde el principio. Varias unidades se manejan como un solo trato con un solo contacto, no cuatro visitas por separado.',
+    'Trading in the old one': 'Entregar el vehículo anterior a cuenta',
+    'Bring the vehicle you are replacing. We will appraise it while you look and roll the number into the deal.':
+      'Trae el vehículo que vas a reemplazar. Lo valuamos mientras ves opciones e integramos la cifra al trato.',
+    'Bring these and we can work the deal same day':
+      'Trae esto y podemos trabajar el trato el mismo día',
+    'Driver license or state ID': 'Licencia de conducir o identificación estatal',
+    'Two recent pay stubs, or three months of business bank statements if you are self-employed':
+      'Dos talones de pago recientes, o tres meses de estados de cuenta del negocio si trabajas por cuenta propia',
+    'Proof of address, a utility bill works': 'Comprobante de domicilio, un recibo de servicios sirve',
+    'Proof of insurance': 'Comprobante de seguro',
+    'Your down payment': 'Tu pago inicial',
+    'Paid in cash and not sure what counts? Call first. We have worked those deals before and there is usually a way to document it.':
+      '¿Te pagan en efectivo y no sabes qué cuenta como comprobante? Llama primero. Ya hemos trabajado esos casos y normalmente hay forma de documentarlo.',
+
+    /* FAQ */
+    'Straight answers': 'Respuestas claras',
+    'FAQ': 'Preguntas frecuentes',
+    'Do I need a pay stub to get financed?': '¿Necesito talón de pago para que me financien?',
+    'No, bank statements work fine. We understand not everyone gets a traditional paycheck, especially business owners and independent contractors, so we work with what you have.':
+      'No, los estados de cuenta funcionan bien. Entendemos que no todos reciben un cheque de nómina tradicional, sobre todo dueños de negocio y contratistas independientes, así que trabajamos con lo que tengas.',
+    'What credit score do I need to get approved?': '¿Qué puntaje de crédito necesito para que me aprueben?',
+    "It varies by lender, but decent credit puts you in a good position. We work with several banks, so even if one program doesn't fit, another might. Give us a call and we'll see what you qualify for.":
+      'Varía según el prestamista, pero un crédito decente te pone en buena posición. Trabajamos con varios bancos, así que si un programa no encaja, otro puede sí. Llámanos y vemos para qué calificas.',
+    "Can I get financed if I'm self-employed or a business owner?":
+      '¿Me pueden financiar si trabajo por cuenta propia o tengo un negocio?',
+    "Yes. We work with self-employed buyers regularly. Bank statements or business financials can be used in place of pay stubs, so bring what you have and we'll figure out the best path.":
+      'Sí. Trabajamos con compradores por cuenta propia con regularidad. Los estados de cuenta o los estados financieros del negocio pueden usarse en lugar de talones de pago, así que trae lo que tengas y buscamos el mejor camino.',
+    'Can I finance a cargo van under my LLC or business name?':
+      '¿Puedo financiar una van de carga bajo mi LLC o el nombre de mi negocio?',
+    "Yes. Bring your business documentation and we'll walk you through titling and financing the van under your company name.":
+      'Sí. Trae la documentación de tu negocio y te explicamos el título y el financiamiento de la van a nombre de tu empresa.',
+    'Do you sell cargo vans in bulk for fleets?': '¿Venden vans de carga por volumen para flotillas?',
+    'Yes. If you need multiple vans for your business, we can work with our lending partners on fleet financing and help get all your vehicles on the road.':
+      'Sí. Si necesitas varias vans para tu negocio, podemos trabajar con nuestros socios financieros en financiamiento de flotilla y ayudarte a poner todos tus vehículos en la calle.',
+    'What kind of cargo vans do you have in stock?': '¿Qué tipo de vans de carga tienen disponibles?',
+    "Our inventory rotates regularly with vans built for delivery, trade work, and mobile businesses. Check our current inventory or call us and we'll help match you to the right van.":
+      'Nuestro inventario rota con regularidad, con vans para reparto, trabajo de oficio y negocios móviles. Revisa el inventario actual o llámanos y te ayudamos a encontrar la van correcta.',
+    'Are your cargo vans inspected before sale?': '¿Sus vans de carga se inspeccionan antes de venderse?',
+    "Yes, every van goes through a mechanical check before it's listed so you can drive off with confidence.":
+      'Sí, cada van pasa una revisión mecánica antes de publicarse para que salgas manejando con confianza.',
+    'Do you offer a warranty on cargo vans?': '¿Ofrecen garantía en las vans de carga?',
+    'Yes, we offer coverage options. Ask us about the plans available for your specific van.':
+      'Sí, ofrecemos opciones de cobertura. Pregúntanos por los planes disponibles para tu van en particular.',
+
+    /* closing CTA + callback form */
+    'Next step': 'Siguiente paso',
+    'Call Now and Get Your Business Moving': 'Llama ahora y pon tu negocio en marcha',
+    'One call, about two minutes. You will know what is on the lot, what it costs out the door, and whether financing works before you drive anywhere.':
+      'Una llamada, unos dos minutos. Vas a saber qué hay en el lote, cuánto cuesta con todo incluido, y si el financiamiento funciona antes de manejar a ningún lado.',
+    'Open Monday to Saturday, 9am to 5pm. Closed Sunday. Calling after hours? Leave your number and we will call you first thing.':
+      'Abierto de lunes a sábado, de 9am a 5pm. Domingos cerrado. ¿Llamas fuera de horario? Deja tu número y te llamamos a primera hora.',
+    'Request a callback': 'Solicita que te llamemos',
+    'For after-hours and Sundays.': 'Para fuera de horario y domingos.',
+    'Name': 'Nombre',
+    'Mobile number': 'Número de celular',
+    'What are you looking for?': '¿Qué estás buscando?',
+    'Select one': 'Selecciona una opción',
+    'Pickup or box truck': 'Pickup o camión de caja',
+    'Not sure yet, need advice': 'Aún no sé, necesito asesoría',
+    'Multiple units for a fleet': 'Varias unidades para una flotilla',
+    'Company website': 'Sitio web de la empresa',
+    'Request my callback': 'Solicitar mi llamada',
+    'By submitting you agree to be contacted by Pick & Ride Auto Sales by phone or text about your inquiry. Message and data rates may apply. Consent is not a condition of purchase.':
+      'Al enviar, aceptas que Pick & Ride Auto Sales te contacte por teléfono o mensaje de texto sobre tu consulta. Pueden aplicar tarifas de mensajes y datos. El consentimiento no es condición de compra.',
+    'Got it. We will call you at the number you gave us during business hours.':
+      'Listo. Te llamamos al número que nos diste en horario de oficina.',
+
+    /* footer */
+    'Hours': 'Horario',
+    'Monday to Friday: 9am to 5pm': 'Lunes a viernes: 9am a 5pm',
+    'Saturday: 9am to 5pm': 'Sábado: 9am a 5pm',
+    'Sunday: Closed': 'Domingo: cerrado',
+    'Serving': 'Atendemos',
+    'Houston, Katy, Cypress, Spring,': 'Houston, Katy, Cypress, Spring,',
+    'Jersey Village, Tomball, and': 'Jersey Village, Tomball y',
+    'surrounding Harris County': 'zonas aledañas del condado de Harris',
+    'Privacy Policy': 'Política de privacidad',
+    'Terms': 'Términos',
+    'Talk to someone on the lot': 'Habla con alguien en el lote',
+    'Mon to Sat, 9am to 5pm': 'Lun a sáb, 9am a 5pm',
+
+    /* Legal notice. Translated so Spanish readers get the same disclaimers
+       the English readers get, with an explicit note that English governs. */
+    'Pick & Ride Auto Sales LLC. All rights reserved. Vehicle availability changes daily and listed vehicles are subject to prior sale. Financing is subject to approval and not all applicants will qualify. Pricing excludes tax, title, license and dealer fees. Vehicle service contracts are administered by a third-party provider. Coverage, limits and exclusions are governed by the contract. Texas Dealer License (GDN) P168375.':
+      'Pick & Ride Auto Sales LLC. Todos los derechos reservados. La disponibilidad de vehículos cambia a diario y los vehículos listados están sujetos a venta previa. El financiamiento está sujeto a aprobación y no todos los solicitantes calificarán. Los precios excluyen impuestos, título, placas y cargos del distribuidor. Los contratos de servicio del vehículo son administrados por un proveedor externo. La cobertura, los límites y las exclusiones se rigen por el contrato. Licencia de Distribuidor de Texas (GDN) P168375. Esta es una traducción de cortesía; la versión en inglés es la versión oficial.',
+
+    /* alt text and control labels */
+    'Previous vehicles': 'Vehículos anteriores',
+    'Next vehicles': 'Vehículos siguientes',
+    'Previous reviews': 'Reseñas anteriores',
+    'Next reviews': 'Reseñas siguientes',
+    'Business owner with a cargo van on the Pick & Ride Auto Sales lot in Houston':
+      'Dueño de negocio con una van de carga en el lote de Pick & Ride Auto Sales en Houston',
+    'Mercedes-Benz Sprinter 2500 high roof cargo van at Pick & Ride Auto Sales':
+      'Van de carga Mercedes-Benz Sprinter 2500 de techo alto en Pick & Ride Auto Sales',
+    'Ford Transit 250 medium roof cargo van at Pick & Ride Auto Sales':
+      'Van de carga Ford Transit 250 de techo medio en Pick & Ride Auto Sales',
+    'RAM ProMaster 2500 high roof cargo van at Pick & Ride Auto Sales':
+      'Van de carga RAM ProMaster 2500 de techo alto en Pick & Ride Auto Sales',
+    'Chevrolet Express 2500 cargo van at Pick & Ride Auto Sales':
+      'Van de carga Chevrolet Express 2500 en Pick & Ride Auto Sales',
+    'Customer collecting the keys to a cargo van at Pick & Ride Auto Sales':
+      'Cliente recibiendo las llaves de una van de carga en Pick & Ride Auto Sales',
+
+    /* Ad message-match headlines injected by ?van= at load time. */
+    'Sprinter Vans': 'Vans Sprinter',
+    'Ford Transit Vans': 'Vans Ford Transit',
+    'ProMaster Vans': 'Vans ProMaster',
+    'Chevy Express Vans': 'Vans Chevy Express',
+    'Cargo Vans': 'Vans de carga',
+    'Fleet Vehicles': 'Vehículos de flotilla',
+    'Trucks': 'Camiones',
+
+    /* strings the scripts produce at runtime */
+    'Sending\u2026': 'Enviando\u2026',
+    'Please add your name so we know who to ask for.':
+      'Por favor escribe tu nombre para saber por quién preguntar.',
+    'Please add a 10 digit mobile number so we can call you back.':
+      'Por favor escribe un celular de 10 dígitos para poder llamarte.',
+    'Sorry \u2014 that did not send. Please call us at (832) 205-4321 and we will take care of you.':
+      'Lo sentimos, no se pudo enviar. Llámanos al (832) 205-4321 y te atendemos.'
+  };
+
+  var ATTRS = ['placeholder', 'aria-label', 'alt', 'title'];
+  /* `value` is deliberately NOT translated. Select and checkbox values are
+     forwarded to DealerCenter, and the Worker matches them against
+     VEHICLE_MAP by exact English label. */
+
+  var STORE = 'pnr_lang';
+  var lang = 'en';
+  var texts = null, attrs = null, hooks = [];
+
+  function norm(s) { return String(s).replace(/\s+/g, ' ').trim(); }
+
+  function skip(node) {
+    var el = node.nodeType === 1 ? node : node.parentNode;
+    for (; el && el.nodeType === 1; el = el.parentNode) {
+      var t = el.tagName;
+      if (t === 'SCRIPT' || t === 'STYLE' || t === 'NOSCRIPT') return true;
+      if (el.hasAttribute('data-i18n-skip')) return true;
+    }
+    return false;
+  }
+
+  function collect() {
+    if (texts) return;
+    texts = []; attrs = [];
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null), n;
+    while ((n = w.nextNode())) {
+      if (!norm(n.nodeValue) || skip(n)) continue;
+      texts.push({ node: n, en: n.nodeValue });
+    }
+    ATTRS.forEach(function (a) {
+      document.body.querySelectorAll('[' + a + ']').forEach(function (el) {
+        if (skip(el)) return;
+        var v = el.getAttribute(a);
+        if (norm(v)) attrs.push({ el: el, attr: a, en: v });
+      });
+    });
+  }
+
+  function T(s) {
+    if (lang !== 'es') return s;
+    var hit = DICT[norm(s)];
+    return hit == null ? s : hit;
+  }
+
+  function apply(to) {
+    collect();
+    lang = to;
+    /* Only nodes we have a translation for are ever written to, and only
+       nodes we actually translated are ever restored. Anything else is left
+       exactly as it is - CallRail rewrites the phone numbers in place after
+       load, and blindly restoring the snapshot would put the untracked
+       number back on screen and break call attribution. */
+    texts.forEach(function (t) {
+      var key = norm(t.en);
+      if (to === 'es') {
+        if (DICT[key] == null) return;
+        /* Preserve the surrounding whitespace, then swap the whole inner
+           string. A .replace(key, ...) would silently no-op on any node whose
+           raw value spans multiple lines, because `key` is collapsed. */
+        var ws = t.en.match(/^(\s*)[\s\S]*?(\s*)$/);
+        t.node.nodeValue = ws[1] + DICT[key] + ws[2];
+        t.done = true;
+      } else if (t.done) {
+        t.node.nodeValue = t.en;
+        t.done = false;
+      }
+    });
+    attrs.forEach(function (a) {
+      var key = norm(a.en);
+      if (to === 'es') {
+        if (DICT[key] == null) return;
+        a.el.setAttribute(a.attr, DICT[key]);
+        a.done = true;
+      } else if (a.done) {
+        a.el.setAttribute(a.attr, a.en);
+        a.done = false;
+      }
+    });
+    document.documentElement.lang = to === 'es' ? 'es' : 'en';
+    document.querySelectorAll('[data-lang-toggle]').forEach(function (btn) {
+      btn.setAttribute('data-to', to === 'es' ? 'en' : 'es');
+      btn.setAttribute('aria-label', to === 'es'
+        ? 'View this page in English' : 'Ver esta página en español');
+      var l = btn.querySelector('[data-lang-label]');
+      if (l) l.textContent = to === 'es' ? 'English' : 'Español';
+    });
+    hooks.forEach(function (fn) { try { fn(to); } catch (e) {} });
+  }
+
+  function set(to, fromClick) {
+    apply(to);
+    try { localStorage.setItem(STORE, to); } catch (e) {}
+    if (fromClick) {
+      (window.dataLayer = window.dataLayer || [])
+        .push({ event: 'language_switch', language: to, page_type: 'commercial_vans_lp' });
+    }
+  }
+
+  document.addEventListener('click', function (ev) {
+    var btn = ev.target.closest && ev.target.closest('[data-lang-toggle]');
+    if (!btn) return;
+    ev.preventDefault();
+    set(btn.getAttribute('data-to') === 'es' ? 'es' : 'en', true);
+  });
+
+  /* Restore after DOMContentLoaded, not now: the ?van= headline swap and the
+     copyright year run in a later script, and collecting before them would
+     snapshot text that is about to change. */
+  function boot() {
+    var saved = null;
+    try { saved = localStorage.getItem(STORE); } catch (e) {}
+    if (saved === 'es') apply('es');
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else { boot(); }
+
+  window.PNR_T = T;
+  window.PNR_LANG = function () { return lang; };
+  window.PNR_ON_LANG = function (fn) { hooks.push(fn); };
+})();
+</script>
+
 <script>
 (function(){
   "use strict";
   var dl = window.dataLayer = window.dataLayer || [];
+  /* Localised at call time so messages match the language on screen. */
+  function T(s){ return (window.PNR_T ? window.PNR_T(s) : s); }
   document.getElementById('yr').textContent = new Date().getFullYear();
 
   /* ---------- Dynamic headline for Google Ads message match ----------
@@ -1377,11 +1797,19 @@ details .ans p:last-child{margin-bottom:0}
     return m ? m[1] : '';
   }
   function fail(msg){
-    erEl.textContent = msg || CALL_BACK;
+    erEl.setAttribute('data-en', msg || CALL_BACK);
+    erEl.textContent = T(msg || CALL_BACK);
     erEl.style.display = 'block';
     btn.removeAttribute('aria-busy');
-    btn.textContent = 'Request my callback';
+    btn.textContent = T('Request my callback');
   }
+
+  /* Redraw runtime strings when the visitor switches language. */
+  if (window.PNR_ON_LANG) window.PNR_ON_LANG(function(){
+    var en = erEl.getAttribute('data-en');
+    if (en && erEl.style.display === 'block') erEl.textContent = T(en);
+    if (!btn.hasAttribute('aria-busy')) btn.textContent = T('Request my callback');
+  });
 
   f.addEventListener('submit', function(ev){
     ev.preventDefault();
@@ -1420,6 +1848,8 @@ details .ans p:last-child{margin-bottom:0}
       phone_raw:    phone,
       van_interest: vanEl.value || 'Not specified',
       consent:      true,
+      /* Tells DealerCenter which language to call this person back in. */
+      preferred_language: (window.PNR_LANG && window.PNR_LANG() === 'es') ? 'Spanish' : 'English',
       page_url:     location.href,
       referrer:     attr.referrer || document.referrer || '(direct)',
       user_agent:   navigator.userAgent,
@@ -1437,7 +1867,7 @@ details .ans p:last-child{margin-bottom:0}
     }
 
     btn.setAttribute('aria-busy','true');
-    btn.textContent = 'Sending\u2026';
+    btn.textContent = T('Sending\u2026');
 
     fetch(endpoint, {
       method: 'POST',

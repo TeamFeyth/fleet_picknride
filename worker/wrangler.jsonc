@@ -10,14 +10,16 @@
   //   npx wrangler secret put DEALERCENTER_ACCESS_TOKEN
   // Request it from support@dealercenter.com with the landing page URL.
   "vars": {
-    // Testing. Note: the integration environment REQUIRES the literal dealer id
-    // "NOWCOM" - do not send the real DC Company ID here.
+    // STEP 1 (current) - integration environment. It REQUIRES the literal dealer
+    // id "NOWCOM"; sending the real Company ID here fails with "Invalid Dealer ID".
     "DEALERCENTER_ENDPOINT": "https://app-int0.dealercenter.net/api-gateway/crm-externalintegration/LeadManagement/post-xml",
     "DEALERCENTER_DEALER_ID": "NOWCOM",
 
-    // Production - switch to these only after DealerCenter validates the test lead:
+    // STEP 2 - production. Swap the two lines above for these two ONLY after
+    // DealerCenter confirms they received and accepted the integration test lead.
+    // Pick & Ride Company ID, supplied by the client 2026-08-18:
     // "DEALERCENTER_ENDPOINT": "https://app.dealercenter.net/api-gateway/crm-externalintegration/LeadManagement/post-xml",
-    // "DEALERCENTER_DEALER_ID": "<DC Company ID from Settings > Dealership > General>",
+    // "DEALERCENTER_DEALER_ID": "22065582",
 
     "LEAD_SOURCE": "Feyth Marketing - Landing Page",
 
