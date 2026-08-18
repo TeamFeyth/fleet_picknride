@@ -485,7 +485,7 @@ section > .wrap > .btn-row{justify-content:center}
 .chip{display:inline-flex;align-items:center;gap:9px;background:var(--white);border:1px solid var(--line-l);border-radius:100px;padding:9px 18px;font-size:.87rem;font-weight:600}
 .chip i{width:11px;height:11px;border-radius:2px;display:block}
 .dt-wrap{background:var(--ink);border:1px solid var(--line-d);border-radius:var(--r);padding:18px;overflow-x:auto}
-.dt-wrap svg{display:block;min-width:720px;width:100%;height:auto}
+.dt-wrap img{display:block;width:100%;height:auto;border-radius:3px}
 .dt-cap{font-size:.82rem;color:var(--muted-l);margin:14px 2px 0;line-height:1.5;text-align:center}
 
 .tiers{display:grid;gap:18px;margin-top:28px}
@@ -878,97 +878,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <h2>Buy With Confidence</h2>
     <p class="lede" style="max-width:800px">Coverage is built around the drivetrain, the parts that cost the most to fix. Each tier adds to the one before it, so you are picking how far out from the engine you want protection to reach.</p>
 
+    <!-- The colour swatches were removed when the tier-coded schematic was
+         replaced with the photographic cutaway below. The cutaway's colours
+         do not correspond to the tier colours, so a swatch sitting directly
+         above it would read as a key and tell visitors the wrong thing about
+         what each tier covers. The tier names stay; the tier cards further
+         down are the actual reference. Restore the swatches only if the
+         illustration is re-coloured to --tier1/--tier2/--tier3. -->
     <div class="dt-legend">
-      <span class="chip"><i style="background:var(--tier1)"></i> Tier 1 · Powertrain</span>
-      <span class="chip"><i style="background:var(--tier2)"></i> Tier 2 · Powertrain Plus</span>
-      <span class="chip"><i style="background:var(--tier3)"></i> Tier 3 · Comprehensive</span>
+      <span class="chip">Tier 1 · Powertrain</span>
+      <span class="chip">Tier 2 · Powertrain Plus</span>
+      <span class="chip">Tier 3 · Comprehensive</span>
     </div>
 
     <!-- ============================================================
-         DRIVETRAIN INFOGRAPHIC — top-down schematic, rear-wheel drive
-         (correct layout for Sprinter / Transit / Express).
-         Fill colors map to warranty tier. Coverage lists below are
-         INDUSTRY-STANDARD PLACEHOLDERS and must be replaced with the
-         provider's actual contract terms. See README.md — Go-live checklist.
+         DRIVETRAIN CUTAWAY — client-supplied illustration.
+         It is decorative: it carries no tier key, so nothing here states
+         what is covered. The coverage lists below are the reference, and
+         they are STILL INDUSTRY-STANDARD PLACEHOLDERS that must be replaced
+         with the provider's actual contract terms before launch.
+         See README.md — Go-live checklist.
          ============================================================ -->
     <div class="dt-wrap">
-      <svg viewBox="0 0 960 400" role="img" aria-labelledby="dtTitle dtDesc">
-        <title id="dtTitle">Drivetrain diagram showing warranty coverage by tier</title>
-        <desc id="dtDesc">Top-down view of a rear-wheel-drive commercial van drivetrain. Engine, transmission, transfer case, driveshaft and differential are Tier 1 powertrain coverage. Axle shafts, water pump and air conditioning compressor are Tier 2. Steering, suspension, brakes, fuel system and electrical are Tier 3.</desc>
-
-        <!-- vehicle body outline -->
-        <rect x="70" y="66" width="820" height="268" rx="44" fill="#161C24" stroke="#2F3945" stroke-width="2"></rect>
-        <text x="90" y="52" fill="#6B7885" font-family="Helvetica,Arial" font-size="14" font-weight="700" letter-spacing="1.5">FRONT</text>
-        <text x="835" y="52" fill="#6B7885" font-family="Helvetica,Arial" font-size="14" font-weight="700" letter-spacing="1.5">REAR</text>
-
-        <!-- wheels -->
-        <g fill="#2B3540" stroke="#3E4A58" stroke-width="2">
-          <rect x="150" y="40" width="74" height="46" rx="10"></rect>
-          <rect x="150" y="314" width="74" height="46" rx="10"></rect>
-          <rect x="700" y="40" width="74" height="46" rx="10"></rect>
-          <rect x="700" y="314" width="74" height="46" rx="10"></rect>
-        </g>
-
-        <!-- TIER 3: brakes at each wheel -->
-        <g fill="none" stroke="var(--tier3)" stroke-width="5" stroke-linecap="round">
-          <path d="M187 90v16"></path><path d="M187 294v16"></path>
-          <path d="M737 90v16"></path><path d="M737 294v16"></path>
-        </g>
-        <!-- TIER 3: steering rack -->
-        <rect x="176" y="112" width="120" height="13" rx="6" fill="var(--tier3)"></rect>
-        <!-- TIER 3: suspension coils -->
-        <g stroke="var(--tier3)" stroke-width="3.5" fill="none" stroke-linecap="round">
-          <path d="M244 52c10 6 10 12 0 18s-10 12 0 18"></path>
-          <path d="M244 320c10 6 10 12 0 18s-10 12 0 18"></path>
-        </g>
-        <!-- TIER 3: fuel tank -->
-        <rect x="500" y="268" width="118" height="52" rx="9" fill="var(--tier3)" opacity=".9"></rect>
-        <!-- TIER 3: battery / electrical -->
-        <rect x="176" y="272" width="74" height="44" rx="8" fill="var(--tier3)" opacity=".9"></rect>
-
-        <!-- TIER 2: water pump + A/C compressor -->
-        <circle cx="163" cy="176" r="21" fill="var(--tier2)"></circle>
-        <circle cx="163" cy="232" r="19" fill="var(--tier2)"></circle>
-
-        <!-- TIER 1: engine -->
-        <rect x="192" y="140" width="132" height="120" rx="12" fill="var(--tier1)"></rect>
-        <g stroke="#1A0D02" stroke-width="3" opacity=".35">
-          <path d="M214 162v76"></path><path d="M244 162v76"></path><path d="M274 162v76"></path><path d="M304 162v76"></path>
-        </g>
-        <!-- TIER 1: transmission -->
-        <path d="M330 162h96l14 24-14 24h-96z" fill="var(--tier1)"></path>
-        <!-- TIER 1: transfer case -->
-        <rect x="446" y="170" width="48" height="60" rx="9" fill="var(--tier1)"></rect>
-        <!-- TIER 1: driveshaft -->
-        <rect x="494" y="190" width="148" height="20" rx="10" fill="var(--tier1)"></rect>
-        <rect x="562" y="182" width="16" height="36" rx="5" fill="var(--tier1)"></rect>
-        <!-- TIER 1: differential -->
-        <circle cx="676" cy="200" r="46" fill="var(--tier1)"></circle>
-        <circle cx="676" cy="200" r="22" fill="#1A0D02" opacity=".28"></circle>
-
-        <!-- TIER 2: rear axle shafts -->
-        <rect x="666" y="86" width="20" height="72" rx="9" fill="var(--tier2)"></rect>
-        <rect x="666" y="242" width="20" height="72" rx="9" fill="var(--tier2)"></rect>
-
-        <!-- labels -->
-        <g font-family="Helvetica,Arial" font-size="13" font-weight="700" fill="#C6D0DA">
-          <text x="258" y="253" text-anchor="middle" fill="#2A1102" font-size="15">ENGINE</text>
-          <text x="378" y="148" text-anchor="middle">Transmission</text>
-          <text x="470" y="252" text-anchor="middle">Transfer case</text>
-          <text x="568" y="176" text-anchor="middle">Driveshaft</text>
-          <text x="676" y="176" text-anchor="middle" fill="#1A0D02">Diff.</text>
-          <text x="712" y="128" fill="#8FC2FA">Axle shaft</text>
-          <text x="712" y="292" fill="#8FC2FA">Axle shaft</text>
-          <text x="128" y="176" text-anchor="end" fill="#8FC2FA">Water pump</text>
-          <text x="128" y="238" text-anchor="end" fill="#8FC2FA">A/C comp.</text>
-          <text x="236" y="106" text-anchor="middle" fill="#7FD9AC">Steering</text>
-          <text x="559" y="300" text-anchor="middle" fill="#0E2A1C">Fuel system</text>
-          <text x="213" y="299" text-anchor="middle" fill="#0E2A1C">Electrical</text>
-          <text x="187" y="384" text-anchor="middle" fill="#7FD9AC">Brakes</text>
-          <text x="737" y="384" text-anchor="middle" fill="#7FD9AC">Brakes</text>
-          <text x="286" y="46" text-anchor="middle" fill="#7FD9AC">Suspension</text>
-        </g>
-      </svg>
+      <picture>
+        <source type="image/webp" srcset="assets/img/drivetrain-960.webp 960w, assets/img/drivetrain-1440.webp 1440w" sizes="(max-width:900px) 100vw, 860px">
+        <img src="assets/img/drivetrain-1440.jpg" width="1440" height="1143" loading="lazy" decoding="async"
+             alt="Top-down cutaway of a rear-wheel-drive drivetrain. The engine, transmission, driveshaft and rear differential are highlighted as the powertrain group. The cooling system, fuel tank and front suspension are highlighted separately, as are the exhaust, springs and brake lines.">
+      </picture>
     </div>
     <p class="dt-cap"><strong>Diagram is illustrative.</strong> Component coverage, limits, deductibles and exclusions are set by the vehicle service contract itself. Ask for the contract before you buy.</p>
 
@@ -1388,6 +1324,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       'Diagrama del tren motriz que muestra la cobertura de garantía por nivel',
     'Top-down view of a rear-wheel-drive commercial van drivetrain. Engine, transmission, transfer case, driveshaft and differential are Tier 1 powertrain coverage. Axle shafts, water pump and air conditioning compressor are Tier 2. Steering, suspension, brakes, fuel system and electrical are Tier 3.':
       'Vista superior del tren motriz de una van comercial de tracción trasera. Motor, transmisión, caja de transferencia, flecha cardán y diferencial son cobertura de tren motriz Nivel 1. Semiejes, bomba de agua y compresor de aire acondicionado son Nivel 2. Dirección, suspensión, frenos, sistema de combustible y sistema eléctrico son Nivel 3.',
+    'Top-down cutaway of a rear-wheel-drive drivetrain. The engine, transmission, driveshaft and rear differential are highlighted as the powertrain group. The cooling system, fuel tank and front suspension are highlighted separately, as are the exhaust, springs and brake lines.':
+      'Vista superior en corte de un tren motriz de tracción trasera. El motor, la transmisión, la flecha cardán y el diferencial trasero se destacan como el grupo del tren motriz. El sistema de enfriamiento, el tanque de combustible y la suspensión delantera se destacan por separado, igual que el escape, los resortes y las líneas de freno.',
     'FRONT': 'DELANTERO',
     'REAR': 'TRASERO',
     'ENGINE': 'MOTOR',
