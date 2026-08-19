@@ -10,7 +10,8 @@
 window.PNR = {
   /* Cloudflare Worker that turns a submission into an ADF lead. */
   leadEndpoint: 'https://pnr-lead-relay.team-efd.workers.dev/lead',
-  /* Google Tag Manager container id. Empty = GTM stays off. */
+  /* GTM container id, kept for reference. The loader below hardcodes it,
+     which is the exact snippet Google hands you. */
   gtmId: 'GTM-5ZKFQV77',
   /* CallRail swap script. Empty = dynamic number swap stays off. */
   callRailSrc: '//cdn.callrail.com/companies/929436290/ee5c10fe11aff979d2f0/12/swap.js'
@@ -18,11 +19,44 @@ window.PNR = {
 window.dataLayer = window.dataLayer || [];
 </script>
 
-<!-- GTM — loads only once a real container id is set above. -->
-<script>(function(w,d,s,l,i){if(!i)return;w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
-var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;
-j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer',window.PNR.gtmId);</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5ZKFQV77');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Ads conversion tracking.
+     GTM alone does NOT define gtag(), so the snippet Google gives you for
+     "Submit lead form" throws a ReferenceError on its own. This loads the
+     Ads tag so gtag() exists. If the same conversion is also configured as a
+     tag inside GTM-5ZKFQV77, remove one of the two or it counts twice. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18369471184"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'AW-18369471184');
+</script>
+
+<!-- Event snippet for Submit lead form II M conversion page -->
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-18369471184/GAEJCIuo5OIcENDFn7dE',
+      'value': 1.0,
+      'currency': 'USD',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
 
 <!-- ============================================================
      CALLRAIL dynamic number swap (company 929436290).
@@ -63,7 +97,7 @@ document.head.appendChild(t);})();</script>
 </script>
 
 <title>Commercial Vans &amp; Trucks for Houston Business | Pick &amp; Ride</title>
-<meta name="description" content="Commercial vans and trucks ready for business in Houston. 150-point inspection, warranty options, personal and business financing. Call (832) 205-4321.">
+<meta name="description" content="Commercial vans and trucks ready for business in Houston. 150-point inspection, warranty options, personal and business financing. Call (832) 990-0948.">
 <link rel="canonical" href="https://fleet.picknrideauto.com/">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0B0D0F">
@@ -599,9 +633,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="brand-name">Pick &amp; Ride <span>Auto Sales</span></span>
     </a>
     <button type="button" class="pnr-lang" data-lang-toggle data-to="es" data-i18n-skip aria-label="Ver esta página en español"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg><span data-lang-label>Español</span></button>
-    <a class="head-call" href="tel:+18322054321" data-cta="header-call">
+    <a class="head-call" href="tel:+18329900948" data-cta="header-call">
       <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"></path></svg>
-      <span class="cr-phone">(832) 205-4321</span>
+      <span class="cr-phone">(832) 990-0948</span>
     </a>
   </div>
 </header>
@@ -617,9 +651,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="lede">Reliable fleet vehicles for Houston businesses. We keep options on the lot and can special order the exact spec you need.</p>
 
       <div class="btn-row">
-        <a class="btn btn-call" href="tel:+18322054321" data-cta="hero-call">
+        <a class="btn btn-call" href="tel:+18329900948" data-cta="hero-call">
           <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"></path></svg>
-          <span>Call <span class="cr-phone">(832) 205-4321</span></span>
+          <span>Call <span class="cr-phone">(832) 990-0948</span></span>
         </a>
         <a class="btn btn-ghost" href="#inventory" data-cta="hero-scroll">View inventory</a>
       </div>
@@ -723,7 +757,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="v-body">
           <h3>Mercedes-Benz Sprinter 2500</h3>
           <div class="v-sub">High Roof · 144" Wheelbase</div>
-          <a class="btn btn-call btn-sm" href="tel:+18322054321" data-cta="inv-sprinter">Call to book a test drive</a>
+          <a class="btn btn-call btn-sm" href="tel:+18329900948" data-cta="inv-sprinter">Call to book a test drive</a>
         </div>
       </article>
 
@@ -737,7 +771,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="v-body">
           <h3>Ford Transit 250</h3>
           <div class="v-sub">Medium Roof · 148" Wheelbase</div>
-          <a class="btn btn-call btn-sm" href="tel:+18322054321" data-cta="inv-transit">Call to book a test drive</a>
+          <a class="btn btn-call btn-sm" href="tel:+18329900948" data-cta="inv-transit">Call to book a test drive</a>
         </div>
       </article>
 
@@ -751,7 +785,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="v-body">
           <h3>RAM ProMaster 2500</h3>
           <div class="v-sub">High Roof · 159" Wheelbase</div>
-          <a class="btn btn-call btn-sm" href="tel:+18322054321" data-cta="inv-promaster">Call to book a test drive</a>
+          <a class="btn btn-call btn-sm" href="tel:+18329900948" data-cta="inv-promaster">Call to book a test drive</a>
         </div>
       </article>
 
@@ -765,7 +799,59 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="v-body">
           <h3>Chevrolet Express 2500</h3>
           <div class="v-sub">Cargo · 135" Wheelbase</div>
-          <a class="btn btn-call btn-sm" href="tel:+18322054321" data-cta="inv-express">Call to book a test drive</a>
+          <a class="btn btn-call btn-sm" href="tel:+18329900948" data-cta="inv-express">Call to book a test drive</a>
+        </div>
+      </article>
+      <article class="v-card">
+        <div class="v-img has-img">
+          <picture>
+            <source type="image/webp" srcset="assets/img/veh-titanxd-480.webp 480w, assets/img/veh-titanxd-800.webp 800w" sizes="(max-width:700px) 86vw, 340px">
+            <img src="assets/img/veh-titanxd-800.jpg" width="800" height="447" loading="lazy" decoding="async" alt="2019 Nissan Titan XD PRO-4X crew cab pickup at Pick &amp; Ride Auto Sales">
+          </picture>
+        </div>
+        <div class="v-body">
+          <h3>2019 Nissan Titan XD</h3>
+          <div class="v-sub">Crew Cab · PRO-4X</div>
+          <a class="btn btn-call btn-sm" href="tel:+18329900948" data-cta="inv-titanxd">Call to book a test drive</a>
+        </div>
+      </article>
+      <article class="v-card">
+        <div class="v-img has-img">
+          <picture>
+            <source type="image/webp" srcset="assets/img/veh-ram2500-480.webp 480w, assets/img/veh-ram2500-800.webp 800w" sizes="(max-width:700px) 86vw, 340px">
+            <img src="assets/img/veh-ram2500-800.jpg" width="800" height="447" loading="lazy" decoding="async" alt="2019 Dodge Ram 2500 regular cab pickup at Pick &amp; Ride Auto Sales">
+          </picture>
+        </div>
+        <div class="v-body">
+          <h3>2019 Dodge Ram 2500</h3>
+          <div class="v-sub">Regular Cab · Long Bed</div>
+          <a class="btn btn-call btn-sm" href="tel:+18329900948" data-cta="inv-ram2500">Call to book a test drive</a>
+        </div>
+      </article>
+      <article class="v-card">
+        <div class="v-img has-img">
+          <picture>
+            <source type="image/webp" srcset="assets/img/veh-tundra-480.webp 480w, assets/img/veh-tundra-800.webp 800w" sizes="(max-width:700px) 86vw, 340px">
+            <img src="assets/img/veh-tundra-800.jpg" width="800" height="447" loading="lazy" decoding="async" alt="2017 Toyota Tundra CrewMax pickup at Pick &amp; Ride Auto Sales">
+          </picture>
+        </div>
+        <div class="v-body">
+          <h3>2017 Toyota Tundra</h3>
+          <div class="v-sub">CrewMax · 1794 Edition</div>
+          <a class="btn btn-call btn-sm" href="tel:+18329900948" data-cta="inv-tundra">Call to book a test drive</a>
+        </div>
+      </article>
+      <article class="v-card">
+        <div class="v-img has-img">
+          <picture>
+            <source type="image/webp" srcset="assets/img/veh-ram1500-480.webp 480w, assets/img/veh-ram1500-800.webp 800w" sizes="(max-width:700px) 86vw, 340px">
+            <img src="assets/img/veh-ram1500-800.jpg" width="800" height="447" loading="lazy" decoding="async" alt="2008 Dodge Ram single cab pickup at Pick &amp; Ride Auto Sales">
+          </picture>
+        </div>
+        <div class="v-body">
+          <h3>2008 Dodge Ram</h3>
+          <div class="v-sub">Single Cab · Long Bed</div>
+          <a class="btn btn-call btn-sm" href="tel:+18329900948" data-cta="inv-ram2008">Call to book a test drive</a>
         </div>
       </article>
 
@@ -786,7 +872,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <div class="score-num">4.9</div>
           <div>
             <div class="score-stars" aria-label="4.9 out of 5 stars">★★★★★</div>
-            <div class="score-sub">[CONFIRM] Based on XX verified reviews</div>
+            <div class="score-sub">Based on 100+ reviews</div>
           </div>
         </div>
       </div>
@@ -956,7 +1042,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <div class="btn-row">
-      <a class="btn btn-call" href="tel:+18322054321" data-cta="warranty-call">
+      <a class="btn btn-call" href="tel:+18329900948" data-cta="warranty-call">
         <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"></path></svg>
         <span>Ask about coverage</span>
       </a>
@@ -1064,9 +1150,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <p class="lede" style="max-width:640px;margin-left:auto;margin-right:auto">One call, about two minutes. You will know what is on the lot, what it costs out the door, and whether financing works before you drive anywhere.</p>
 
     <div class="btn-row">
-      <a class="btn btn-call" href="tel:+18322054321" data-cta="final-call">
+      <a class="btn btn-call" href="tel:+18329900948" data-cta="final-call">
         <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"></path></svg>
-        <span>Call <span class="cr-phone">(832) 205-4321</span></span>
+        <span>Call <span class="cr-phone">(832) 990-0948</span></span>
       </a>
     </div>
     <p class="hours-note">Open Monday to Saturday, 9am to 5pm. Closed Sunday. Calling after hours? Leave your number and we will call you first thing.</p>
@@ -1127,7 +1213,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <address>
         5757 Addicks Satsuma Rd, Ste 11<br>
         Houston, TX 77084<br>
-        <a href="tel:+18322054321" class="cr-phone" data-cta="footer-call">(832) 205-4321</a>
+        <a href="tel:+18329900948" class="cr-phone" data-cta="footer-call">(832) 990-0948</a>
       </address>
     </div>
     <div>
@@ -1167,7 +1253,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <b>Talk to someone on the lot</b>
     <span>Mon to Sat, 9am to 5pm</span>
   </div>
-  <a class="btn btn-call" href="tel:+18322054321" data-cta="sticky-call">
+  <a class="btn btn-call" href="tel:+18329900948" data-cta="sticky-call">
     <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"></path></svg>
     Call
   </a>
@@ -1181,7 +1267,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   "name":"Pick & Ride Auto Sales",
   "image":"https://www.picknrideauto.com/assets/og-commercial-vans.jpg",
   "url":"https://www.picknrideauto.com/commercial-vans/",
-  "telephone":"+1-832-205-4321",
+  "telephone":"+1-832-990-0948",
   "priceRange":"$$",
   "address":{
     "@type":"PostalAddress",
@@ -1258,6 +1344,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     'View inventory': 'Ver inventario',
     '150-point inspection on every vehicle': 'Inspección de 150 puntos en cada vehículo',
     'Customer rating': 'Calificación de clientes',
+    'Based on 100+ reviews': 'Basado en más de 100 reseñas',
     'No Pay Stubs Needed': 'Sin talones de pago',
     'We can work from bank statements': 'Trabajamos con estados de cuenta',
     'Personal & Business Financing': 'Financiamiento personal y comercial',
@@ -1287,6 +1374,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     'Medium Roof · 148" Wheelbase': 'Techo medio · Distancia entre ejes 148"',
     'High Roof · 159" Wheelbase': 'Techo alto · Distancia entre ejes 159"',
     'Cargo · 135" Wheelbase': 'Carga · Distancia entre ejes 135"',
+    'Crew Cab · PRO-4X': 'Doble cabina · PRO-4X',
+    'Regular Cab · Long Bed': 'Cabina regular · Caja larga',
+    'CrewMax · 1794 Edition': 'CrewMax · Edición 1794',
+    'Single Cab · Long Bed': 'Cabina sencilla · Caja larga',
     'Call to book a test drive': 'Llama para agendar una prueba de manejo',
     'Inventory changes weekly. Call for what is on the ground today, or to place a special order.':
       'El inventario cambia cada semana. Llama para saber qué hay hoy en el lote, o para hacer un pedido especial.',
@@ -1483,6 +1574,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       'Van de carga RAM ProMaster 2500 de techo alto en Pick & Ride Auto Sales',
     'Chevrolet Express 2500 cargo van at Pick & Ride Auto Sales':
       'Van de carga Chevrolet Express 2500 en Pick & Ride Auto Sales',
+    '2019 Nissan Titan XD PRO-4X crew cab pickup at Pick & Ride Auto Sales':
+      'Camioneta Nissan Titan XD PRO-4X 2019 doble cabina en Pick & Ride Auto Sales',
+    '2019 Dodge Ram 2500 regular cab pickup at Pick & Ride Auto Sales':
+      'Camioneta Dodge Ram 2500 2019 cabina regular en Pick & Ride Auto Sales',
+    '2017 Toyota Tundra CrewMax pickup at Pick & Ride Auto Sales':
+      'Camioneta Toyota Tundra CrewMax 2017 en Pick & Ride Auto Sales',
+    '2008 Dodge Ram single cab pickup at Pick & Ride Auto Sales':
+      'Camioneta Dodge Ram 2008 cabina sencilla en Pick & Ride Auto Sales',
     'Customer collecting the keys to a cargo van at Pick & Ride Auto Sales':
       'Cliente recibiendo las llaves de una van de carga en Pick & Ride Auto Sales',
 
@@ -1501,8 +1600,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       'Por favor escribe tu nombre para saber por quién preguntar.',
     'Please add a 10 digit mobile number so we can call you back.':
       'Por favor escribe un celular de 10 dígitos para poder llamarte.',
-    'Sorry \u2014 that did not send. Please call us at (832) 205-4321 and we will take care of you.':
-      'Lo sentimos, no se pudo enviar. Llámanos al (832) 205-4321 y te atendemos.'
+    'Sorry \u2014 that did not send. Please call us at (832) 990-0948 and we will take care of you.':
+      'Lo sentimos, no se pudo enviar. Llámanos al (832) 990-0948 y te atendemos.'
   };
 
   var ATTRS = ['placeholder', 'aria-label', 'alt', 'title'];
@@ -1727,7 +1826,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   var btn  = f.querySelector('button[type="submit"]');
   var okEl = document.getElementById('cbOk');
   var erEl = document.getElementById('cbErr');
-  var CALL_BACK = 'Sorry \u2014 that did not send. Please call us at (832) 205-4321 and we will take care of you.';
+  var CALL_BACK = 'Sorry \u2014 that did not send. Please call us at (832) 990-0948 and we will take care of you.';
   var loadedAt = Date.now();
 
   function gaClientId(){
@@ -1822,6 +1921,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         page_type:'commercial_vans_lp',
         gclid: attr.gclid || ''
       });
+      // The Ads snippet is designed to be wired to an onclick. Fired here
+      // instead, on a lead the Worker actually accepted, so the conversion
+      // count matches the leads that reach the CRM rather than every click.
+      // No url argument: nothing should navigate away.
+      try { gtag_report_conversion(); } catch (e) { console.error('[PNR] conversion tag failed:', e); }
       f.querySelectorAll('.field, button, .consent, .hp-field').forEach(function(el){ el.style.display='none'; });
       okEl.style.display = 'block';
       okEl.focus && okEl.focus();
