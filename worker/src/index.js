@@ -213,8 +213,27 @@ async function postToDealerCenter(payload, env) {
  * guesses the URL cannot inject rows.
  */
 async function logToSheet(lead, dcResult, env) {
-  const url = env.SHEETS_WEBHOOK_URL;
-  if (!url) return { ok: false, reason: 'not_configured' };
+  // Trimmed because these values are pasted into the Cloudflare dashboard by
+  // hand, and a trailing newline is invisible there but makes fetch throw.
+  const url = String(env.SHEETS_WEBHOOK_URL || '').trim();
+
+  if (!url) {
+    // This used to return silently, which made a misspelled variable name look
+    // exactly like a working setup: no request, no log, no row, no clue.
+    console.error(
+      'Sheet backup skipped: SHEETS_WEBHOOK_URL is empty or missing. ' +
+      'Check the name is spelled exactly SHEETS_WEBHOOK_URL on the Worker ' +
+      '(not on the Pages project) and that you redeployed after saving it.'
+    );
+    return { ok: false, reason: 'not_configured' };
+  }
+  if (url.indexOf('/exec') === -1) {
+    console.error(
+      'Sheet backup skipped: SHEETS_WEBHOOK_URL does not end in /exec, so it ' +
+      'is not a published Apps Script web app URL. Got: ' + url.slice(0, 60)
+    );
+    return { ok: false, reason: 'bad_url' };
+  }
 
   const row = {
     secret: env.SHEETS_SHARED_SECRET || '',
@@ -243,8 +262,16 @@ async function logToSheet(lead, dcResult, env) {
       signal: AbortSignal.timeout(6000),
     });
     if (!res.ok) {
-      console.error('Sheet backup rejected', res.status);
+      console.error('Sheet backup rejected with HTTP', res.status);
       return { ok: false, reason: 'sheet_error', status: res.status };
+    }
+    // Apps Script answers 200 even when it refuses the row, so the body is
+    // the only place the refusal shows up. Without this, a mismatched SECRET
+    // looked like a successful write.
+    const text = (await res.text()).slice(0, 300);
+    if (text.indexOf('"ok":true') === -1) {
+      console.error('Sheet backup refused by the script:', text);
+      return { ok: false, reason: 'sheet_refused', detail: text };
     }
     return { ok: true };
   } catch (err) {
@@ -312,7 +339,14 @@ export default {
       const backup = await logToSheet(normalized, result, env);
       // 503 when we were never wired up, 502 when DealerCenter refused it.
       const status = result.reason === 'not_configured' ? 503 : 502;
-      return json({ ok: false, error: result.reason, backed_up: backup.ok }, status, cors);
+      return json({
+        ok: false,
+        error: result.reason,
+        backed_up: backup.ok,
+        // Surfaced so the reason is visible in the browser Network tab
+        // without having to open the Worker log stream.
+        backup_reason: backup.ok ? 'saved' : (backup.reason || 'failed'),
+      }, status, cors);
     }
 
     // Happy path: the lead is already safe in DealerCenter, so the sheet row
