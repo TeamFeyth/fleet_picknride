@@ -248,6 +248,8 @@ async function logToSheet(lead, dcResult, env) {
     form_name: lead.form_name,
     page_url: lead.page_url,
     ga_client_id: lead.ga_client_id,
+    user_agent: lead.user_agent,
+    ip: lead.ip,
     attribution: JSON.stringify(lead.attribution || {}),
     // So a human scanning the sheet can tell which rows DealerCenter missed.
     dealercenter_status: dcResult.ok ? 'delivered' : (dcResult.reason || 'failed'),
@@ -323,6 +325,13 @@ export default {
       page_url: clean(lead.page_url, 300),
       ga_client_id: clean(lead.ga_client_id, 60),
       submitted_at: clean(lead.submitted_at, 40) || new Date().toISOString(),
+      // Both landing pages have always sent user_agent; it used to be dropped
+      // here and never reached the sheet. Google Ads uses it, together with the
+      // IP below, to strengthen the match when no click id is present.
+      user_agent: clean(lead.user_agent, 400),
+      // Cloudflare gives us the visitor's real IP for free. The lead body must
+      // never be trusted for this: a client can put anything in it.
+      ip: clean(request.headers.get('CF-Connecting-IP') || '', 45),
       attribution: {},
     };
     const src = lead.attribution && typeof lead.attribution === 'object' ? lead.attribution : {};

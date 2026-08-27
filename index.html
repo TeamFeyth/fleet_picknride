@@ -97,9 +97,20 @@ document.head.appendChild(t);})();</script>
   var STORE = 'pnr_attr';
   var saved = {};
   try { saved = JSON.parse(sessionStorage.getItem(STORE) || '{}'); } catch(e){}
-  var qs = new URLSearchParams(location.search || '');
+  /* Click ids are read straight out of location.search rather than through
+     URLSearchParams. URLSearchParams follows form-encoding rules, so it turns
+     a literal "+" into a space — which silently corrupts a gclid that some
+     redirect re-encoded on the way here, and a corrupted gclid matches nothing
+     in Google Ads. decodeURIComponent undoes real percent escapes (%3D -> =)
+     and never touches "+", so the value is stored byte for byte, casing and
+     all. Nothing downstream may trim, upper- or lower-case it. */
+  function rawParam(name){
+    var m = (location.search || '').match(new RegExp('[?&]' + name + '=([^&#]*)'));
+    if (!m) return '';
+    try { return decodeURIComponent(m[1]); } catch(e){ return m[1]; }
+  }
   KEYS.forEach(function(k){
-    var v = qs.get(k);
+    var v = rawParam(k);
     /* first touch wins — do not clobber an id already captured */
     if (v && !saved[k]) saved[k] = v;
   });
