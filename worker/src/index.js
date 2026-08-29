@@ -45,6 +45,113 @@ function clean(value, max = 400) {
  * Minimum-field rule: first_name + a phone is sufficient, so a single-word
  * name is still a valid prospect.
  */
+/* ------------------------------------------------------------------ *
+ * Abuse controls                                                      *
+ *                                                                     *
+ * Everything here runs on the server. The honeypot and the two-second *
+ * timer on the pages only stop naive bots: anyone can read the page   *
+ * source, find this endpoint and POST straight to it. These checks    *
+ * are the ones that cannot be skipped.                                *
+ * ------------------------------------------------------------------ */
+
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const RATE_MAX = 5;
+const DUPLICATE_WINDOW_MS = 10 * 60 * 1000;
+
+/**
+ * In-memory, and therefore per-isolate: Cloudflare may run several isolates
+ * and recycles them, so a determined attacker spread thin across regions can
+ * exceed these numbers. It still flattens the common case, which is one host
+ * hammering one endpoint, and it costs no extra infrastructure. The durable
+ * version of this belongs in a Cloudflare Rate Limiting rule on the dashboard,
+ * which is worth adding alongside rather than instead.
+ */
+const recentByIp = new Map();
+const recentLeads = new Map();
+
+function sweep(map, windowMs, now) {
+  if (map.size < 500) return;
+  for (const [key, value] of map) {
+    const last = Array.isArray(value) ? value[value.length - 1] : value;
+    if (now - last > windowMs) map.delete(key);
+  }
+}
+
+function rateLimited(ip, now) {
+  if (!ip) return false;
+  sweep(recentByIp, RATE_WINDOW_MS, now);
+  const hits = (recentByIp.get(ip) || []).filter((t) => now - t < RATE_WINDOW_MS);
+  hits.push(now);
+  recentByIp.set(ip, hits);
+  return hits.length > RATE_MAX;
+}
+
+/** Same person, same form, twice in ten minutes: a double click or a retry. */
+function isDuplicate(key, now) {
+  sweep(recentLeads, DUPLICATE_WINDOW_MS, now);
+  const last = recentLeads.get(key);
+  recentLeads.set(key, now);
+  return Boolean(last && now - last < DUPLICATE_WINDOW_MS);
+}
+
+/**
+ * Phone shapes no real North American customer has.
+ *
+ * Area code and exchange must both start 2-9 under the numbering plan, so
+ * 0XX and 1XX are impossible rather than merely unusual, and the 555 exchange
+ * is reserved for fiction and directory assistance.
+ */
+function isJunkPhone(digits) {
+  const d = String(digits || '');
+  if (d.length !== 10) return true;
+  if (/^(\d)\1{9}$/.test(d)) return true;
+  if (d === '1234567890' || d === '0123456789') return true;
+  if (/^\d{3}555\d{4}$/.test(d)) return true;
+  if (!/^[2-9]\d{2}[2-9]\d{6}$/.test(d)) return true;
+  return false;
+}
+
+/**
+ * Counts links in free text.
+ *
+ * One link is not suspicious: a customer pasting the listing they are asking
+ * about is doing exactly what the message box is for. Two or more is the
+ * signature of link-stuffing spam, and that is where the line goes.
+ */
+function linkCount(text) {
+  const found = String(text || '').match(/https?:\/\/|www\./gi);
+  return found ? found.length : 0;
+}
+
+/**
+ * Cloudflare Turnstile, verified server-side.
+ *
+ * Fails OPEN when the verification service itself cannot be reached. A
+ * Cloudflare outage must never cost real customers; the honeypot, the rate
+ * limit and the phone checks still apply in that window.
+ */
+async function verifyTurnstile(token, ip, env) {
+  if (!env.TURNSTILE_SECRET) return { ok: true, reason: 'not_configured' };
+  if (!token) return { ok: false, reason: 'missing_token' };
+  try {
+    const body = new FormData();
+    body.append('secret', env.TURNSTILE_SECRET);
+    body.append('response', token);
+    if (ip) body.append('remoteip', ip);
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      body,
+    });
+    const data = await res.json();
+    return {
+      ok: Boolean(data.success),
+      reason: (data['error-codes'] || []).join(',') || 'invalid',
+    };
+  } catch (err) {
+    return { ok: true, reason: 'verify_unavailable' };
+  }
+}
+
 function splitName(full) {
   const parts = clean(full, 120).split(' ').filter(Boolean);
   if (parts.length === 0) return { first: '', last: '' };
@@ -293,6 +400,8 @@ export default {
         ok: true,
         configured: Boolean(env.DEALERCENTER_ACCESS_TOKEN && env.DEALERCENTER_DEALER_ID && env.DEALERCENTER_ENDPOINT),
         sheets_backup: Boolean(env.SHEETS_WEBHOOK_URL),
+        turnstile_secret: Boolean(env.TURNSTILE_SECRET),
+        turnstile_enforced: String(env.TURNSTILE_ENFORCE || '').toLowerCase() === 'true',
       }, 200, cors);
     }
     if (url.pathname !== '/lead') return json({ ok: false, error: 'not_found' }, 404, cors);
@@ -308,10 +417,53 @@ export default {
     // Bots that filled the honeypot get a 200 and go nowhere.
     if (clean(lead.company_website)) return json({ ok: true, skipped: true }, 200, cors);
 
+    const ip = request.headers.get('CF-Connecting-IP') || '';
+    const now = Date.now();
+
+    // Flood control first: cheapest check, and it protects everything below it
+    // including the outbound call to Turnstile.
+    if (rateLimited(ip, now)) {
+      return json({ ok: false, error: 'rate_limited' }, 429, cors);
+    }
+
+    // Turnstile. Enforcement is a separate switch from the secret so the
+    // Worker can be deployed before the pages carry the widget: until
+    // TURNSTILE_ENFORCE is 'true' a failure is logged and waved through, and
+    // nothing breaks in the gap between the two deploys.
+    const enforceTurnstile = String(env.TURNSTILE_ENFORCE || '').toLowerCase() === 'true';
+    const turnstile = await verifyTurnstile(clean(lead.turnstile_token, 2048), ip, env);
+    if (!turnstile.ok) {
+      if (enforceTurnstile) {
+        // A real 4xx rather than a silent 200. A visitor whose widget expired
+        // must be told to try again; swallowing this would lose real leads to
+        // look tidy against bots, which is the wrong trade.
+        return json({ ok: false, error: 'turnstile_failed', reason: turnstile.reason }, 403, cors);
+      }
+      console.log('Turnstile not enforced yet, letting through: ' + turnstile.reason);
+    }
+
     const name = clean(lead.name, 120);
     const phone = clean(lead.phone, 32).replace(/\D/g, '').slice(-10);
     if (!name) return json({ ok: false, error: 'name_required' }, 422, cors);
     if (phone.length !== 10) return json({ ok: false, error: 'phone_invalid' }, 422, cors);
+
+    // Same phone, same form, twice inside ten minutes. Answered as a success
+    // because from the visitor's side it was one: they pressed the button
+    // twice. Delivering twice would create two prospects and two conversions.
+    if (isDuplicate([phone, clean(lead.form_name, 60)].join('|'), now)) {
+      return json({ ok: true, duplicate: true }, 200, cors);
+    }
+
+    // Heuristics that can be wrong about a real person. These leads are NOT
+    // delivered to DealerCenter, but they ARE written to the sheet with the
+    // reason attached, so a false positive is visible and recoverable instead
+    // of vanishing. Turnstile and rate-limit failures are not logged: those
+    // are unambiguously automated, and logging them would hand a bot a way to
+    // flood the spreadsheet.
+    let spamReason = '';
+    if (isJunkPhone(phone)) spamReason = 'junk_phone';
+    else if (linkCount(lead.message) >= 2) spamReason = 'links_in_message';
+    else if (linkCount(lead.name) >= 1) spamReason = 'link_in_name';
 
     const normalized = {
       name,
@@ -338,6 +490,18 @@ export default {
     for (const key of Object.keys(src)) normalized.attribution[clean(key, 40)] = clean(src[key], 300);
 
     const payload = buildApplication(normalized, env);
+    // Flagged leads stop here. They are recorded with the reason in place of
+    // the delivery status, which makes them easy to find in the sheet and easy
+    // to hand back to sales if a check turns out to have been wrong. The
+    // response is a plain 200: a bot learns nothing, and a real person who
+    // tripped a heuristic is not left staring at an error while we look into
+    // it. The sheet is the safety net that makes this acceptable.
+    if (spamReason) {
+      console.log('Lead flagged as ' + spamReason + ' from ' + (ip || 'unknown ip'));
+      await logToSheet(normalized, { status: 'blocked_spam:' + spamReason }, env);
+      return json({ ok: true, filtered: true }, 200, cors);
+    }
+
     const result = await postToDealerCenter(payload, env);
 
     if (!result.ok) {

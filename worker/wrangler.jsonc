@@ -32,6 +32,23 @@
     //
     // Empty = feature off, and the Worker behaves exactly as it did before.
 
+    // Cloudflare Turnstile.
+    //
+    // TURNSTILE_SECRET is a SECRET and must never appear in this file — this
+    // repository is public:
+    //   wrangler secret put TURNSTILE_SECRET
+    //
+    // The switch below lives here rather than in the dashboard on purpose.
+    // `wrangler deploy` REPLACES the plain-text vars of the Worker with this
+    // block, so anything typed into the dashboard is silently wiped on the
+    // next deploy. Secrets survive; plain vars do not.
+    //
+    // Roll-out: deploy with "false", ship the landing pages, submit one real
+    // lead on each, then flip to "true" and deploy again. While it is false a
+    // failed challenge is logged and let through, so the gap between the two
+    // deploys costs nothing.
+    "TURNSTILE_ENFORCE": "false",
+
     "LEAD_SOURCE": "Feyth Marketing - Landing Page",
 
     // Comma-separated. Add each landing page origin.

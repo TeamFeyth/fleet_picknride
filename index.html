@@ -119,9 +119,34 @@ document.head.appendChild(t);})();</script>
   if (!saved.first_seen)   saved.first_seen   = new Date().toISOString();
   try { sessionStorage.setItem(STORE, JSON.stringify(saved)); } catch(e){}
   window.PNR_ATTR = saved;
+
+  /* Mirror the captured attribution into hidden inputs on page load, not at
+     submit time. The ads team verifies this by inspecting the submit button
+     and reading the value attribute of the gclid input, which only works if it
+     is already populated while the page sits there. Runs twice on purpose:
+     once now in case the form is already parsed, once on DOMContentLoaded
+     because this script lives in the head and usually is not. */
+  (function(){
+    function fillAttrInputs(){
+      var a = window.PNR_ATTR || {};
+      var els = document.querySelectorAll('input[data-attr]');
+      for (var i = 0; i < els.length; i++){
+        els[i].value = a[els[i].getAttribute('data-attr')] || '';
+      }
+    }
+    fillAttrInputs();
+    if (document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', fillAttrInputs);
+    }
+  })();
+
 })();
 </script>
 
+<!-- Cloudflare Turnstile. Loaded async so it never blocks the page: if it is
+     slow or blocked, the form still renders and the submit handler explains
+     what happened rather than failing silently. -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <title>Commercial Vans &amp; Trucks for Houston Business | Pick &amp; Ride</title>
 <meta name="description" content="Commercial vans and trucks ready for business in Houston. 150-point inspection, warranty options, personal and business financing. Call (832) 205-4321.">
 <link rel="canonical" href="https://fleet.picknrideauto.com/">
@@ -1207,6 +1232,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <option value="Multiple units for a fleet">Multiple units for a fleet</option>
         </select>
       </div>
+      <div class="cf-turnstile" data-i18n-skip data-sitekey="0x4AAAAAAEhNswCm2-B0jwik" data-action="lead" data-theme="light" style="margin-top:16px"></div>
       <!-- Honeypot: real people never see this, bots fill it. -->
       <div class="hp-field" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
         <label for="cbCompanyUrl">Company website</label>
@@ -1214,10 +1240,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <!-- Populated at submit time from window.PNR_ATTR. -->
-      <input type="hidden" name="gclid" id="fGclid">
-      <input type="hidden" name="utm_source" id="fUtmSource">
-      <input type="hidden" name="utm_medium" id="fUtmMedium">
-      <input type="hidden" name="utm_campaign" id="fUtmCampaign">
+      <input type="hidden" name="gclid" id="fGclid" data-attr="gclid"><input type="hidden" name="gbraid" data-attr="gbraid"><input type="hidden" name="wbraid" data-attr="wbraid">
+      <input type="hidden" name="utm_source" id="fUtmSource" data-attr="utm_source">
+      <input type="hidden" name="utm_medium" id="fUtmMedium" data-attr="utm_medium">
+      <input type="hidden" name="utm_campaign" id="fUtmCampaign" data-attr="utm_campaign">
       <input type="hidden" name="campaignid" id="fCampaignId">
       <input type="hidden" name="keyword" id="fKeyword">
 
@@ -1624,6 +1650,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     /* strings the scripts produce at runtime */
     'Sending\u2026': 'Enviando\u2026',
+    'Please complete the verification below and try again.':
+      'Completa la verificación de abajo e inténtalo de nuevo.',
     'Please add your name so we know who to ask for.':
       'Por favor escribe tu nombre para saber por quién preguntar.',
     'Please add a 10 digit mobile number so we can call you back.':
@@ -1905,8 +1933,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if(el) el.value = attr[p[1]] || '';
     });
 
+    var tsEl = f.querySelector('[name="cf-turnstile-response"]');
+    var tsToken = tsEl ? tsEl.value : '';
+    /* Only enforced when the widget actually loaded — same reasoning as the
+       used-cars page. A blocked Turnstile must not cost a real lead. */
+    if (window.turnstile && !tsToken){
+      fail('Please complete the verification below and try again.');
+      return;
+    }
+
     var payload = {
       form_name:    'fleet_callback',
+      turnstile_token: tsToken,
       page_type:    'commercial_vans_lp',
       name:         name,
       phone:        digits,
@@ -1939,6 +1977,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify(payload)
     }).then(function(r){
+      if(window.turnstile){ try { window.turnstile.reset(); } catch(e){} }
+      if(r.status === 403){ fail('Please complete the verification below and try again.'); return null; }
       if(!r.ok) throw new Error('HTTP '+r.status);
       return r.json().catch(function(){ return {}; });
     }).then(function(){
