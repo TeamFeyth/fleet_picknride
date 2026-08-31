@@ -6,6 +6,19 @@
 <!-- ============================================================
      SITE CONFIG — the only block you edit to go live.
      ============================================================ -->
+<script>
+  window.PNR = {
+    /* Deployed pnr-lead-relay Worker. Until this is set the form refuses to
+       submit and tells the visitor to call instead - it never fakes a success.
+       VERIFY THIS AGAINST THE LIVE FILE BEFORE DEPLOYING. This block was
+       deleted from the repo on 31 Aug 2026, so the repo no longer matches
+       production. Note the README still names an older workers.dev subdomain
+       (cold-smoke-4aef); the value below is the one the health check answers
+       on. Confirm with /health before trusting either. */
+    leadEndpoint: 'https://pnr-lead-relay.team-efd.workers.dev/lead'
+    /* callRailSrc intentionally absent - CallRail is decommissioned. */
+  };
+</script>
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -15,25 +28,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-5ZKFQV77');</script>
 <!-- End Google Tag Manager -->
 
-<!-- Google Ads conversion tracking.
-     GTM alone does NOT define gtag(), so the snippet Google gives you for
-     "Submit lead form" throws a ReferenceError on its own. This loads the
-     Ads tag so gtag() exists. If the same conversion is also configured as a
-     tag inside GTM-5ZKFQV77, remove one of the two or it counts twice. -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18369471184"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){ dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', 'AW-18369471184');
-</script>
+<!-- NO Google Ads tag on this page, by design.
+
+     AW-18369471184 used to be configured here and a conversion event fired
+     from the submit handler. That created a second, parallel count: this page
+     reported the lead from the browser AND the same lead was going to be
+     delivered again by the offline import that reads the gclid out of the
+     PNR_GoogleAds_Conversions sheet. Every fleet lead would have counted
+     twice and Smart Bidding would have optimised on inflated numbers.
+
+     Both landing pages are now standardised on one model: GTM + GA4 in the
+     browser, Google Ads conversions ONLY from the sheet import. The import is
+     the mechanism that covers both pages - used cars has no Ads tag and never
+     had a working one - so it is the one we keep. It also carries the gclid,
+     which the browser tag does not, so click-level attribution survives.
+
+     If Ads remarketing audiences are ever wanted from this page, build them
+     from GA4 (G-FQZ10ZDQ2G) linked to the Ads account rather than restoring
+     the block above. If someone insists on the browser tag anyway, the import
+     conversion action MUST be set to secondary in Google Ads first. -->
 
 <!-- Google tag (gtag.js) - GA4 property G-FQZ10ZDQ2G.
-     gtag() is already defined by the Ads tag above, so strictly speaking only
-     the config line is new. The loader is kept anyway so this block stands on
-     its own: the comment above tells the next person they may delete the Ads
-     tag, and GA4 must not die with it. If GA4 is ALSO configured as a tag
-     inside GTM-5ZKFQV77, remove one of the two or page_view counts twice. -->
+     This is now the only gtag.js loader on the page and the only place gtag()
+     is defined, so it must stay. If GA4 is ALSO configured as a tag inside
+     GTM-5ZKFQV77, remove one of the two or page_view counts twice. -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FQZ10ZDQ2G"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -43,32 +61,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
 <!-- End Google tag (gtag.js) -->
 
-<!-- Event snippet for Submit lead form II M conversion page -->
-<script>
-function gtag_report_conversion(url) {
-  var callback = function () {
-    if (typeof(url) != 'undefined') {
-      window.location = url;
-    }
-  };
-  gtag('event', 'conversion', {
-      'send_to': 'AW-18369471184/GAEJCIuo5OIcENDFn7dE',
-      'value': 1.0,
-      'currency': 'USD',
-      'event_callback': callback
-  });
-  return false;
-}
-</script>
+<!-- CallRail dynamic number insertion removed (was company 929436290).
+     The dealership's own number, (832) 205-4321, is static text in the markup
+     and is what every visitor now sees. The "cr-phone" hook classes went with
+     it; they carried no styling, only CallRail targeting.
 
-<!-- ============================================================
-     CALLRAIL dynamic number swap (company 929436290).
-     Every phone number is live text (never an image) and carries
-     class "cr-phone" so dynamic number insertion works.
-     ============================================================ -->
-<script>(function(){var s=window.PNR&&window.PNR.callRailSrc;if(!s)return;
-var t=document.createElement('script');t.type='text/javascript';t.async=true;t.src=s;
-document.head.appendChild(t);})();</script>
+     Consequence, on the record: no phone call from this page is attributed to
+     a Google Ads click any more. Form leads are unaffected - they carry the
+     gclid through sessionStorage to the Worker to the sheet. -->
 
 
 <!-- ============================================================
@@ -674,7 +674,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <button type="button" class="pnr-lang" data-lang-toggle data-to="es" data-i18n-skip aria-label="Ver esta página en español"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg><span data-lang-label>Español</span></button>
     <a class="head-call" href="tel:+18322054321" data-cta="header-call">
       <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"></path></svg>
-      <span class="cr-phone">(832) 205-4321</span>
+      <span>(832) 205-4321</span>
     </a>
   </div>
 </header>
@@ -692,7 +692,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="btn-row">
         <a class="btn btn-call" href="tel:+18322054321" data-cta="hero-call">
           <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"></path></svg>
-          <span>Call <span class="cr-phone">(832) 205-4321</span></span>
+          <span>Call <span>(832) 205-4321</span></span>
         </a>
         <a class="btn btn-ghost" href="#inventory" data-cta="hero-scroll">View inventory</a>
       </div>
@@ -1191,7 +1191,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="btn-row">
       <a class="btn btn-call" href="tel:+18322054321" data-cta="final-call">
         <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2z"></path></svg>
-        <span>Call <span class="cr-phone">(832) 205-4321</span></span>
+        <span>Call <span>(832) 205-4321</span></span>
       </a>
     </div>
     <p class="hours-note">Open Monday to Saturday, 9am to 5pm. Closed Sunday. Calling after hours? Leave your number and we will call you first thing.</p>
@@ -1253,7 +1253,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <address>
         5757 Addicks Satsuma Rd, Ste 11<br>
         Houston, TX 77084<br>
-        <a href="tel:+18322054321" class="cr-phone" data-cta="footer-call">(832) 205-4321</a>
+        <a href="tel:+18322054321" data-cta="footer-call">(832) 205-4321</a>
       </address>
     </div>
     <div>
@@ -1697,9 +1697,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     lang = to;
     /* Only nodes we have a translation for are ever written to, and only
        nodes we actually translated are ever restored. Anything else is left
-       exactly as it is - CallRail rewrites the phone numbers in place after
-       load, and blindly restoring the snapshot would put the untracked
-       number back on screen and break call attribution. */
+       exactly as it is. This used to matter because CallRail rewrote the phone
+       numbers in place after load; CallRail is gone, but the rule stands, as
+       any script that touches text nodes after load would hit the same bug. */
     texts.forEach(function (t) {
       var key = norm(t.en);
       if (to === 'es') {
@@ -1977,11 +1977,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         page_type:'commercial_vans_lp',
         gclid: attr.gclid || ''
       });
-      // The Ads snippet is designed to be wired to an onclick. Fired here
-      // instead, on a lead the Worker actually accepted, so the conversion
-      // count matches the leads that reach the CRM rather than every click.
-      // No url argument: nothing should navigate away.
-      try { gtag_report_conversion(); } catch (e) { console.error('[PNR] conversion tag failed:', e); }
+      // No browser-side Google Ads conversion is fired here any more. The
+      // generate_lead push above still reaches GA4 and GTM; the Google Ads
+      // conversion for this same lead is delivered by the offline import,
+      // keyed on the gclid, so firing one here too would count it twice.
       f.querySelectorAll('.field, button, .consent, .hp-field').forEach(function(el){ el.style.display='none'; });
       okEl.style.display = 'block';
       okEl.focus && okEl.focus();
