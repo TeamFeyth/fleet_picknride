@@ -34,7 +34,7 @@ surfaces to maintain and two more URLs Google can index.
 |---|---|---|
 | GTM | `GTM-N98QJB5R` | `GTM-5ZKFQV77` |
 | GA4 | `G-V6NVR31EHE` | `G-FQZ10ZDQ2G` |
-| Google Ads tag | **none, by design** | **none, by design** |
+| Google Ads tag | `AW-18369471184` **base tag only** | `AW-18369471184` **base tag only** |
 | CallRail swap | yes | yes |
 | Turnstile | yes | yes |
 
@@ -43,9 +43,18 @@ surfaces to maintain and two more URLs Google can index.
 Both pages report conversions through one mechanism only: the offline import
 that reads the gclid out of the `PNR_GoogleAds_Conversions` feed. That is the
 mechanism that covers both pages, and it carries the click id, which a browser
-tag does not.
+tag does not. The import's conversion action (`Form Capture`) is **Primary**, so
+anything fired from a browser lands on top of it.
 
-Two things used to be here and were removed on 31 Aug 2026:
+On 17 Sep 2026 the Ads **base tag** was added back to both pages, at the
+client's request, because the Ads account reported no Google tag detected. It is
+one `gtag('config', 'AW-18369471184')` line on the `gtag.js` loader each page
+already had for GA4 — not a second loader, and not a conversion snippet. It buys
+Ads-side pageview data and remarketing audiences, and changes nothing about how
+conversions are counted.
+
+That distinction is the whole point, because both of the things removed on
+31 Aug 2026 were the other kind:
 
 - Used cars carried a second `gtag.js` loader for `AW-18369471184`, pasted in by
   hand and undocumented. It redefined `gtag()` and fired a second `gtag('js')`
@@ -55,8 +64,10 @@ Two things used to be here and were removed on 31 Aug 2026:
   handler. That would have double counted every fleet lead once the import
   started working: once from the browser, once from the sheet.
 
-If Ads remarketing audiences are ever wanted, build them from GA4 linked to the
-Ads account. Do not paste a conversion snippet back into either page.
+So: **do not paste a conversion snippet back into either page**, and do not add a
+conversion tag inside either GTM container. If the base tag is not wanted either,
+delete the `AW-` config line from both `index.html` files and put this row back
+to "none, by design".
 
 ---
 

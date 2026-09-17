@@ -40,25 +40,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-5ZKFQV77');</script>
 <!-- End Google Tag Manager -->
 
-<!-- NO Google Ads tag on this page, by design.
+<!-- Google Ads tag AW-18369471184 - BASE TAG ONLY.
 
-     AW-18369471184 used to be configured here and a conversion event fired
-     from the submit handler. That created a second, parallel count: this page
-     reported the lead from the browser AND the same lead was going to be
-     delivered again by the offline import that reads the gclid out of the
-     PNR_GoogleAds_Conversions sheet. Every fleet lead would have counted
-     twice and Smart Bidding would have optimised on inflated numbers.
+     Added 17 Sep 2026 at the client's request ("add Google tag"), because the
+     Ads account was reporting no Google tag detected on this page. Read this
+     before you touch it.
 
-     Both landing pages are now standardised on one model: GTM + GA4 in the
-     browser, Google Ads conversions ONLY from the sheet import. The import is
-     the mechanism that covers both pages - used cars has no Ads tag and never
-     had a working one - so it is the one we keep. It also carries the gclid,
-     which the browser tag does not, so click-level attribution survives.
+     What is here: a single extra gtag('config', 'AW-18369471184') line on the
+     gtag.js loader below, which already existed for GA4. That buys Ads-side
+     pageview data and remarketing audiences, and nothing else.
 
-     If Ads remarketing audiences are ever wanted from this page, build them
-     from GA4 (G-FQZ10ZDQ2G) linked to the Ads account rather than restoring
-     the block above. If someone insists on the browser tag anyway, the import
-     conversion action MUST be set to secondary in Google Ads first. -->
+     What is deliberately NOT here: a second gtag.js loader, and any kind of
+     conversion event. Do not add either.
+
+     AW-18369471184 used to be configured here AND a conversion event fired
+     from the submit handler, which would have counted every fleet lead twice
+     once the import started working. The config line came back on 17 Sep
+     2026; the conversion event did NOT, and must not. The submit handler at
+     the bottom of this file carries a comment saying so - leave it there.
+
+     Conversions still come from ONE place: the offline import that reads the
+     gclid out of the PNR_GoogleAds_Conversions sheet. It covers both landing
+     pages and it carries the click id, which a browser tag does not. Its
+     conversion action (Form Capture) is Primary in Google Ads, so a
+     browser-side conversion fired from this page would be counted on top of
+     it and Smart Bidding would optimise on inflated numbers. That means no
+     gtag('event', 'conversion', ...) and no send_to with a conversion label,
+     here or in GTM-5ZKFQV77.
+
+     If the base tag is not wanted after all: delete the AW- config line
+     below, restore this comment to "NO Google Ads tag on this page, by
+     design", and put the README row back to "none, by design". -->
 
 <!-- Google tag (gtag.js) - GA4 property G-FQZ10ZDQ2G.
      This is now the only gtag.js loader on the page and the only place gtag()
@@ -70,6 +82,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-FQZ10ZDQ2G');
+  /* Ads base tag. Same loader, same gtag(), no conversion event - see the
+     comment block above before adding anything to this list. */
+  gtag('config', 'AW-18369471184');
 </script>
 <!-- End Google tag (gtag.js) -->
 
