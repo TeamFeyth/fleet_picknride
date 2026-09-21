@@ -1271,7 +1271,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <option value="Multiple units for a fleet">Multiple units for a fleet</option>
         </select>
       </div>
-      <div class="cf-turnstile" data-i18n-skip data-sitekey="0x4AAAAAAEhNswCm2-B0jwik" data-action="lead" data-theme="light" style="margin-top:16px"></div>
+      <div class="cf-turnstile" data-i18n-skip data-sitekey="0x4AAAAAAEhNswCm2-B0jwik" data-action="lead" data-execution="execute" data-theme="light" style="margin-top:16px"></div>
       <!-- Honeypot: real people never see this, bots fill it. -->
       <div class="hp-field" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
         <label for="cbCompanyUrl">Company website</label>
@@ -2047,4 +2047,58 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 
 
+<!-- ---------- Turnstile: start the challenge on first form interaction ----------
+     The widgets above now carry data-execution="execute", so no challenge runs
+     on page load. This starts one the first time somebody focuses a field in
+     the form that holds the widget.
+
+     Why: a Managed widget rendered on every pageview mints a token on every
+     pageview, while siteverify only runs when a form is actually submitted. The
+     Turnstile dashboard reads that ratio as "siteverify isn't being called" and
+     warns the widget is unprotected. Deferring the challenge to the moment
+     somebody touches the form brings tokens issued and tokens verified back in
+     line without changing anything the submit handler does.
+
+     Timing is safe: both submit handlers validate name and phone, and enforce a
+     two second minimum since page load, before they ever read the token — so
+     the challenge has had several seconds to finish. If it somehow has not, the
+     handler shows "Please complete the verification below and try again" and
+     the next click works, exactly as it already does for an expired token.
+
+     Failure is never fatal: if execute cannot run the token stays empty, which
+     is the same state as a widget blocked by an extension, and the Worker still
+     applies the honeypot, the rate limit and the phone checks. -->
+<script>
+(function () {
+  var started = [];
+
+  function begin(el, tries) {
+    if (started.indexOf(el) !== -1) return;
+    if (window.turnstile) {
+      try {
+        window.turnstile.execute(el);
+        started.push(el);
+        return;
+      } catch (err) {
+        /* api.js is present but has not rendered this widget yet. Fall through
+           to the retry instead of marking it started: marking it here would let
+           one early focus leave that form permanently without a token. */
+      }
+    }
+    if (tries > 0) {
+      setTimeout(function () { begin(el, tries - 1); }, 300);
+    } else {
+      console.warn('[PNR] Turnstile did not start; the form still submits.');
+    }
+  }
+
+  document.addEventListener('focusin', function (ev) {
+    var t = ev.target;
+    var form = t && t.closest ? t.closest('form') : null;
+    if (!form) return;
+    var widgets = form.querySelectorAll('.cf-turnstile');
+    for (var i = 0; i < widgets.length; i++) begin(widgets[i], 10);
+  }, true);
+})();
+</script>
 </body></html>
